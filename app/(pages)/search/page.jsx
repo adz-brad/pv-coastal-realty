@@ -25,6 +25,7 @@ const Page = () => {
     setResults(res)
     const scrollDiv = document.getElementById("search-results").offsetTop
     window.scrollTo({ top: scrollDiv, behavior: 'smooth'})
+    setPage(page+1)
     setLoading(false)
   }
 
