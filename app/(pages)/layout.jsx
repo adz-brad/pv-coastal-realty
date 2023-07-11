@@ -1,6 +1,7 @@
 import '../styles/globals.css'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
+import Messenger from '../components/Messenger'
 
 export const metadata = {
   title: 'PV Coastal Realty',
@@ -18,6 +19,7 @@ export default function RootLayout({ children }) {
             {children}
           </main>
         <Footer />
+        <Messenger />
       </body>
     </html>
 

@@ -6,8 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "tunnel": "ssh -R pvcoastalrealty:80:localhost:3000 serveo.net"
+    "lint": "next lint"
   },
   "dependencies": {
     "@tailwindcss/forms": "^0.5.3",
@@ -24,7 +23,6 @@
     "react-dom": "18.2.0",
     "react-icons": "^4.8.0",
     "react-map-gl": "^7.0.25",
-    "react-messenger-customer-chat": "^0.8.0",
     "slugify": "^1.6.6",
     "tailwindcss": "3.3.2"
   }
