@@ -2,7 +2,7 @@
 
 const nextConfig = {
     images: {
-        unoptimized: false,
+        unoptimized: true,
         domains: ['members.mlsvallarta.com'],
     },
     experimental: {

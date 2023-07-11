@@ -23,6 +23,8 @@ const Page = () => {
     const payload = getPayload(1, formData)
     const res = await searchProperties(payload)
     setResults(res)
+    const scrollDiv = document.getElementById("search-results").offsetTop
+    window.scrollTo({ top: scrollDiv, behavior: 'smooth'})
     setLoading(false)
   }
 

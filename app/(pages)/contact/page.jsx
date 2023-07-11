@@ -12,7 +12,7 @@ const Page = () => {
           Contact Us
       </h2>
       <div className="flex flex-col lg:flex-row lg:space-x-8">
-        <div className="lg:w-1/3 space-y-4">
+        <div className="lg:w-1/2 space-y-4">
           <span className="text-2xl font-semibold">
             Ready to get started?
           </span>
@@ -81,8 +81,8 @@ const Page = () => {
           </div>
 
         </div>
-        <div className="py-8 lg:py-0 lg:w-2/3">
-          <div className="flex flex-col space-y-4 mx-auto lg:w-screen lg:max-w-screen-lg">
+        <div className="py-8 lg:py-0 lg:w-1/2">
+          <div className="flex flex-col space-y-4 mx-auto lg:max-w-screen-lg">
             <span className="font-semibold text-lg">
               Or Fill Out The Form Below
             </span>

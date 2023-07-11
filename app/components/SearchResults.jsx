@@ -3,7 +3,7 @@ import PropertyCard from "./PropertyCard"
 const SearchResults = ({ results }) => {
 
   return (
-    <div>
+    <div id="search-results">
       <h2 className="text-3xl lg:text-4xl font-bold pb-2 border-b">
         Search Results
       </h2>

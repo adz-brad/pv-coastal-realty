@@ -53,7 +53,7 @@ const Page = async ({ params : { property: id }}) => {
             </div>
             <div className="flex flex-col">
               <div className="flex flex-row items-center space-x-3">
-                <MdLocationPin className="text-2xl text-sky-600"/>
+                <MdLocationPin className="text-2xl text-sky-600 min-w-[20px]"/>
                 <a 
                   title="Open in Google Maps"
                   href={`https://www.google.com/maps/search/${property.address?.street?.replace(' ','+')},+${property.address?.city?.replace(' ','+')},+${property.address?.state?.replace(' ','+')}+/@${property.address?.coordinates?.lat},${property.address?.coordinates?.lon}?entry=ttu`}
@@ -78,11 +78,11 @@ const Page = async ({ params : { property: id }}) => {
                 }
               </div>
             </div>
-            <p className="lg:text-lg grow" title="Property Description">
+            <p className="lg:text-lg grow pb-4" title="Property Description">
               {property.description.en}
             </p>
             <Link href="/contact" className="button">
-            Contact PV Coastal Realty To Learn More
+            Contact PV Coastal Realty
           </Link>
           </div>
 
