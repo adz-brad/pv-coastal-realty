@@ -88,7 +88,7 @@ const Page = async ({ params : { property: id }}) => {
 
         </div>
         <div className="flex flex-col space-y-8 overflow-hidden">
-          <div className="w-full h-[500px]">
+          <div className="w-full h-[350px] md:h-[500px]">
               <Mapbox 
                 title={property.title}
                 coordinates={{lat: property.address?.coordinates?.lat, lng: property.address?.coordinates?.lon}} 
