@@ -1,0 +1,31 @@
+{
+  "name": "pv-coastal-realty-nextjs",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "tunnel": "ssh -R pvcoastalrealty:80:localhost:3000 serveo.net"
+  },
+  "dependencies": {
+    "@tailwindcss/forms": "^0.5.3",
+    "autoprefixer": "10.4.14",
+    "axios": "^1.4.0",
+    "axios-oauth-1.0a": "^0.3.6",
+    "https": "^1.0.0",
+    "immutability-helper": "^3.1.1",
+    "mapbox-gl": "^2.15.0",
+    "next": "^13.4.5",
+    "postcss": "8.4.23",
+    "postmark": "^3.0.18",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-icons": "^4.8.0",
+    "react-map-gl": "^7.0.25",
+    "react-messenger-customer-chat": "^0.8.0",
+    "slugify": "^1.6.6",
+    "tailwindcss": "3.3.2"
+  }
+}

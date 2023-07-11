@@ -1,0 +1,175 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import 'mapbox-gl/dist/mapbox-gl.css';
+
+@layer base {
+    @font-face {
+      font-family: 'Nunito';
+      src: url('../../assets/fonts/Nunito.ttf') format('truetype');
+    }
+    @font-face {
+      font-family: 'Montserrat';
+      src: url('../../assets/fonts/Montserrat.ttf') format('truetype');
+    }
+  }
+  
+  body {
+    font-family: 'Montserrat';
+    @apply bg-zinc-50 text-zinc-950;
+  }
+
+  .button {
+    @apply mt-auto px-4 py-3 rounded-sm shadow-md bg-sky-600 hover:brightness-125 text-zinc-50 text-center text-xl font-medium;
+  }
+
+  .form-input, .form-textarea, .form-select {
+    @apply border-none shadow-md rounded-sm;
+  }
+
+
+  .map-container {
+    height: 400px;
+    }
+
+    $thumb-size: 16px;
+
+    @mixin track-styles {
+      appearance: none;
+      background: transparent;
+      border: transparent;
+    }
+    
+    @mixin thumb-styles {
+      appearance: none;
+      pointer-events: all;
+      width: $thumb-size;
+      height: $thumb-size;
+      border-radius: 0px;
+      border: 0 none;
+      cursor: grab;
+      background-color: red;
+    
+      &:active {
+        cursor: grabbing;
+      }
+    }
+    
+    #root {
+      max-width: 500px;
+      padding: 12px;
+      margin: auto;
+    }
+    
+    .wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+      @apply my-auto;
+   }
+    .input-wrapper {
+      width: calc(100% + 16px);
+      margin: 0 calc(16px / -2);
+      position: absolute;
+      height: 16px;
+   }
+    .control-wrapper {
+      width: 100%;
+      position: absolute;
+      height: 16px;
+   }
+    .input {
+      position: absolute;
+      width: 100%;
+      pointer-events: none;
+      appearance: none;
+      height: 100%;
+      opacity: 0;
+      z-index: 3;
+      padding: 0;
+   }
+    .input::-ms-track {
+      appearance: none;
+      background: transparent;
+      border: transparent;
+   }
+    .input::-moz-range-track {
+      appearance: none;
+      background: transparent;
+      border: transparent;
+   }
+    .input:focus::-webkit-slider-runnable-track {
+      appearance: none;
+      background: transparent;
+      border: transparent;
+   }
+    .input::-ms-thumb {
+      appearance: none;
+      pointer-events: all;
+      width: 16px;
+      height: 16px;
+      border-radius: 0px;
+      border: 0 none;
+      cursor: grab;
+      @apply bg-sky-600;
+   }
+    .input::-ms-thumb:active {
+      cursor: grabbing;
+   }
+    .input::-moz-range-thumb {
+      appearance: none;
+      pointer-events: all;
+      width: 16px;
+      height: 16px;
+      border-radius: 0px;
+      border: 0 none;
+      cursor: grab;
+      @apply bg-sky-600;
+   }
+    .input::-moz-range-thumb:active {
+      cursor: grabbing;
+   }
+    .input::-webkit-slider-thumb {
+      appearance: none;
+      pointer-events: all;
+      width: 16px;
+      height: 16px;
+      border-radius: 0px;
+      border: 0 none;
+      cursor: grab;
+      @apply bg-sky-700;
+   }
+    .input::-webkit-slider-thumb:active {
+      cursor: grabbing;
+   }
+    .rail {
+      position: absolute;
+      width: 100%;
+      top: 50%;
+      transform: translateY(-50%);
+      height: 6px;
+      border-radius: 3px;
+      @apply bg-zinc-300/50;
+   }
+    .inner-rail {
+      position: absolute;
+      height: 100%;
+      opacity: 0.5;
+      @apply bg-sky-500;
+   }
+    .control {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      position: absolute;
+      top: 50%;
+      margin-left: calc(16px / -2);
+      transform: translate3d(0, -50%, 0);
+      z-index: 2;
+      @apply bg-sky-500;
+   }
+
+   .mapboxgl-control-container{
+    @apply hidden;
+   }
+    
