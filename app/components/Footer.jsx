@@ -52,7 +52,7 @@ const Footer = () => {
             </Link>
         </div>
         </div>
-        <ul className="relative py-4 lg:py-0 lg:absolute lg:top-1/2 lg:left-1/2 lg:-translate-y-1/2 lg:-translate-x-1/2 flex flex-col items-center lg:flex-row lg:space-x-6 text-zinc-900 text-xl font-medium mx-auto">
+        <ul className="relative py-4 lg:py-0 lg:absolute lg:top-1/2 lg:left-1/2 lg:-translate-y-1/2 lg:-translate-x-1/2 flex flex-col items-center lg:flex-row space-y-1 lg:space-y-0 lg:space-x-6 text-zinc-900 text-xl font-medium mx-auto">
             {navMenu.map((item, i) => {
                 return (   
                 <li 
