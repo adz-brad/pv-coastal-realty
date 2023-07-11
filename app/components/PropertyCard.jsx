@@ -36,8 +36,8 @@ const PropertyCard = ({ property, i }) => {
             </span>
           </div>
           <div className="flex flex-row items-center space-x-1">
-            <MdLocationPin className="text-sky-500 text-xl" />
-            <span className="text-sm md:text-base">
+            <MdLocationPin className="text-sky-500 text-xl min-w-[20px]" />
+            <span className="text-sm">
               {property.address.street}, {property.address.city}, {property.address.state}
             </span>
           </div>

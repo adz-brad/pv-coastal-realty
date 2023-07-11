@@ -196,7 +196,7 @@ const Search = ({ loading }) => {
                 </div>
             </div>
             <div className="flex flex-col grow space-y-4 lg:space-y-0">
-                <div className="flex flex-row items-center">
+                <div className="flex flex-row items-center pb-4">
                     <span className="text-lg font-medium mr-4">
                         Price Range
                     </span>
