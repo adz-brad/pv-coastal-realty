@@ -21,7 +21,7 @@ const Page = () => {
           </p>
 
           <div className="group flex flex-row items-center space-x-4">
-              <MdLocationPin className="group-hover:scale-110 group-hover:brightness-125 transition-all text-4xl text-sky-600" />
+              <MdLocationPin className="group-hover:scale-110 group-hover:brightness-125 transition-all scale-115 text-3xl text-sky-600" />
               <div className="flex flex-col">
               <span className="font-semibold">
                 Location
@@ -38,9 +38,9 @@ const Page = () => {
               <span className="font-semibold">
                 Email
               </span>
-              <span>
+              <a href={`mailto:${agency.email}?subject=PV Coastal Realty Contact`} className="hover:text-sky-600">
                 {agency.email}
-              </span>
+              </a>
             </div>
           </div>
 
@@ -50,9 +50,9 @@ const Page = () => {
               <span className="font-semibold">
                 Phone (MX)  
               </span>
-              <span>
+              <a href={`tel:+${agency.phoneMX}`} className="hover:text-sky-600">
                 +{agency.phoneMX}
-              </span>
+              </a>
             </div>
           </div>
 
@@ -62,9 +62,9 @@ const Page = () => {
               <span className="font-semibold">
                 Phone (USA / Canada)
               </span>
-              <span>
+              <a href={`tel:+${agency.phoneCA}`} className="hover:text-sky-600">
                 +{agency.phoneCA}
-              </span>
+              </a>
             </div>
           </div>
 
@@ -74,9 +74,9 @@ const Page = () => {
               <span className="font-semibold">
                 WhatsApp
               </span>
-              <span>
+              <a href={`https://wa.me/+${agency.whatsapp}`} className="hover:text-sky-600" target="_blank">
                 +{agency.whatsapp}
-              </span>
+              </a>
             </div>
           </div>
 

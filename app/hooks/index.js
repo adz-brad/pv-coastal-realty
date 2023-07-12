@@ -123,7 +123,7 @@ export const getTitleFromSlug = (string) => {
               "@type": "Person",
               "name": "Marc Leblanc",
               "url": "https://www.pvcoastalrealty.com/about",
-              "image": "imageurl"
+              "image": "https://pv-coastal-realty.vercel.app/_next/image?url=%2Fmarc-leblanc.jpg&w=1920&q=75"
           },
           {
               "@type": "RealEstateAgent",
@@ -132,10 +132,10 @@ export const getTitleFromSlug = (string) => {
               "image": "imageurl",
               "photo": {
                   "@type": "ImageObject",
-                  "url": "imageurl",
+                  "url": "https://pv-coastal-realty.vercel.app/_next/image?url=%2Fmarc-leblanc.jpg&w=1920&q=75",
                   "name": "Marc Leblanc"
               },
-              "telephone": "contact number"
+              "telephone": "+523223017394"
           }
       ]
   }`

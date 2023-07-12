@@ -16,6 +16,7 @@ const Page = async ({ params : { property: id }}) => {
   const property = await getProperty(id)
   
   const jsonData = usePropertyJSON({
+    title: property?.title,
     address: {
       street: property?.address?.street,
       city: property?.address?.city,
@@ -28,13 +29,14 @@ const Page = async ({ params : { property: id }}) => {
     },
     price: property?.price?.current,
     description: property?.description?.en,
-    images: property?.images,
+    image: property?.images[0].url,
     type: property?.type?.en
   })
 
   return (
     <>
       <JsonLd data={jsonData} />
+
       <Banner title={property?.title} image={property.images[0]?.url} />
       <div className="flex flex-col mx-auto p-4 md:p-8 xl:px-0 xl:py-16 max-w-screen-xl space-y-8 xl:space-y-16">
         <div className="flex flex-col lg:flex-row space-y-8 lg:space-y-0 lg:space-x-8 2xl:space-x-16">

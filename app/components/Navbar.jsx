@@ -37,7 +37,7 @@ const Navbar = () => {
                 return (   
                 <li 
                     key={i}
-                    tabIndex={i}
+                    tabIndex="-1"
                 >
                     <Link onClick={() => setOpen(false)} href={item.path} className="hover:text-sky-300 transition-colors">
                         {item.title}

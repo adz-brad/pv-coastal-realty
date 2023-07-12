@@ -5,5 +5,13 @@ module.exports = {
     './components/**/*.{js,ts,jsx,tsx,mdx}',
     './app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
+  theme: {
+    extend: {
+      fontFamily: {
+        brand: ['var(--font-kumbh)'],
+        body: ['var(--font-montserrat)']
+      }
+    }
+  },
   plugins: [require('@tailwindcss/forms'),],
 }

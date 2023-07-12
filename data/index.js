@@ -1,7 +1,7 @@
 export const agents = [
     {
         name: 'Marc Leblanc',
-        description: "Marc Leblanc is a bilingual individual proficient in both French and English. Having spent the majority of his life in Calgary, Marc began his career in the construction industry after completing his education. With a family background deeply rooted in the real estate industry since the early 1980s, Marc gained valuable knowledge and insights from his parents, thus nurturing his passion for real estate. Since 2001, Marc has been a frequent visitor to the enchanting city of Puerto Vallarta, where he has explored every corner and its surrounding areas. His extensive familiarity with the region has greatly influenced his career, as he is dedicated to finding properties that perfectly align with his clients' specific needs. Recognizing the diverse lifestyles his clients seek, Marc strives to provide tailored solutions in the realm of real estate and property development.",
+        description: "Marc Leblanc is a bilingual real estate professional proficient in both French and English. Having spent the majority of his life in Calgary, Marc began his career in the construction industry after completing his education. With a family background deeply rooted in the real estate industry since the early 1980s, Marc gained valuable knowledge and insights from his parents, thus nurturing his passion for real estate. Since 2001, Marc has been a frequent visitor to the enchanting city of Puerto Vallarta, where he has explored every corner and its surrounding areas. His extensive familiarity with the region has greatly influenced his career, as he is dedicated to finding properties that perfectly align with his clients' specific needs. Recognizing the diverse lifestyles his clients seek, Marc strives to provide tailored solutions in the realm of real estate and property development.",
         imageUrl: '/marc-leblanc.jpg'
     },
     {
@@ -14,7 +14,7 @@ export const agents = [
 export const agency = {
     name: 'PV Coastal Realty',
     description: "PV Coastal Realty is a dynamic, independent company that prides itself on its unwavering commitment to finding the perfect solution tailored to your needs. Whether you're searching for your ideal property in Puerto Vallarta or along the captivating coastline of Riviera Nayarit, our team is dedicated to assisting you every step of the way. We understand that you're not simply purchasing a house, but rather investing in an extraordinary lifestyle. With our extensive listing portfolio and comprehensive MLS search database, we can expedite the search process, ensuring that you swiftly embark on the next chapter of your life in Mexico where your dream home awaits. Whatever you envision, let PV Coastal Realty be your trusted guide in turning your imagination into reality.",
-    address: 'Paseo Cocoteros 297, Int. 48, Nuevo Vallarta, México',
+    address: 'Nuevo Vallarta, Nayarit, México',
     email: 'mleblanc@pvcoastalrealty.com​',
     phoneMX: '523223017394',
     phoneCA: '14038002291',
