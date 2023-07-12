@@ -47,19 +47,19 @@ const Page = ({ params: { region }}) => {
 
   const breadcrumbData = useBreadcrumbJSON([
     {
-      url: `${process.env.NEXT_SITE_BASEPATH}`,
+      url: null,
       name: 'Home'
     },
     {
-      url: `${process.env.NEXT_SITE_BASEPATH}/regions`,
+      url: `regions`,
       name: 'Regions'
     },
     {
-      url: `${process.env.NEXT_SITE_BASEPATH}/regions/${str}`,
+      url: `regions/${str}`,
       name: str
     },
     {
-      url: `${process.env.NEXT_SITE_BASEPATH}/regions/${str}/zones`,
+      url: `regions/${str}/zones`,
       name: 'Zones'
     },
   ])

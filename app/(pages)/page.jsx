@@ -12,7 +12,7 @@ export default async function Home() {
 
   const breadcrumbData = useBreadcrumbJSON([
     {
-      url: `${process.env.NEXT_SITE_BASEPATH}`,
+      url: null,
       name: 'Home'
     }
   ])

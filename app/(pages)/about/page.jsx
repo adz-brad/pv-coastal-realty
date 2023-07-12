@@ -32,11 +32,11 @@ const Page = () => {
 
   const breadcrumbData = useBreadcrumbJSON([
     {
-      url: `${process.env.NEXT_SITE_BASEPATH}`,
+      url: null,
       name: 'Home'
     },
     {
-      url: `${process.env.NEXT_SITE_BASEPATH}/about`,
+      url: `about`,
       name: 'Agency'
     }
   ])

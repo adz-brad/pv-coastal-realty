@@ -61,15 +61,15 @@ const Page = async ({ params : { property: id }}) => {
 
   const breadcrumbData = useBreadcrumbJSON([
     {
-      url: `${process.env.NEXT_SITE_BASEPATH}`,
+      url: null,
       name: 'Home'
     },
     {
-      url: `${process.env.NEXT_SITE_BASEPATH}/properties`,
+      url: `properties`,
       name: 'Properties'
     },
     {
-      url: `${process.env.NEXT_SITE_BASEPATH}/properties/${id}`,
+      url: `properties/${id}`,
       name: property.title
     }
   ])

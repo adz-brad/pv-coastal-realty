@@ -55,7 +55,7 @@ export const getTitleFromSlug = (string) => {
                   "@type": "ListItem",
                   "position": ${i+1},
                   "item": {
-                      "@id": "${item.url}",
+                      "@id": ${item.url ? `${basePath}/${item.url}` : `${basePath}`},
                       "name": "${item.name}"
                   }
               },`
@@ -128,7 +128,7 @@ export const getTitleFromSlug = (string) => {
               "@type": "Person",
               "name": "Marc Leblanc",
               "url": "${basePath}/about",
-              "image": "${basePath}/_next/image?url=/marc-leblanc.jpg&w=1920&q=75"
+              "image": "${basePath}/marc-leblanc.jpg"
           },
           {
               "@type": "RealEstateAgent",
@@ -137,7 +137,7 @@ export const getTitleFromSlug = (string) => {
               "image": "imageurl",
               "photo": {
                   "@type": "ImageObject",
-                  "url": "${basePath}/_next/image?url=/marc-leblanc.jpg&w=1920&q=75",
+                  "url": "${basePath}/marc-leblanc.jpg",
                   "name": "Marc Leblanc"
               },
               "telephone": "+523223017394"

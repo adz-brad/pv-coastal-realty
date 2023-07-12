@@ -81,6 +81,7 @@ const Search = ({ loading }) => {
                     title="Select Zones"
                     name="zones"
                     id="zones"
+                    defaultValue="Select Zones To Search"
                     className="form-select"
                     onChange={(e) => {
                         const obj = JSON.parse(e.target.value)
@@ -89,8 +90,7 @@ const Search = ({ loading }) => {
                         }
                     }}
                 >
-
-                        <option disabled selected className="hidden">
+                        <option disabled value="Select Zones To Search" className="hidden">
                             Select Zones To Search
                         </option>
 
@@ -112,8 +112,14 @@ const Search = ({ loading }) => {
                     )
                     })}
             </select>
-            <select name="Bedrooms" id="Bedrooms" title="Select Number of Bedrooms" className="form-select">
-                <option selected disabled className="hidden">
+            <select 
+                name="Bedrooms" 
+                id="Bedrooms" 
+                defaultValue="Number of Bedrooms"
+                title="Select Number of Bedrooms" 
+                className="form-select"
+            >
+                <option disabled value="Number of Bedrooms" className="hidden">
                     Number of Bedrooms
                 </option>
                 <option value="1">1</option>
@@ -121,8 +127,14 @@ const Search = ({ loading }) => {
                 <option value="3">3</option>
                 <option value="4">4+</option>
             </select>
-            <select name="Bathrooms" id="Bathrooms" title="Select Number of Bathrooms" className="form-select">
-                <option selected disabled className="hidden">
+            <select 
+                name="Bathrooms" 
+                id="Bathrooms" 
+                title="Select Number of Bathrooms" 
+                className="form-select"
+                defaultValue="Number of Bathrooms"
+            >
+                <option disabled value="Number of Bathrooms" className="hidden">
                     Number of Bathrooms
                 </option>
                 <option value="1">1</option>
@@ -177,7 +189,7 @@ const Search = ({ loading }) => {
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                     {view.map((item, i) => {
                         return (
-                            <div className="flex flex-row items-center space-x-2">
+                            <div key={i} className="flex flex-row items-center space-x-2">
                                 <input
                                     id={item.title}
                                     key={i}
