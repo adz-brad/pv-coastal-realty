@@ -9,15 +9,16 @@ const Mapbox = ({ coordinates, zoom, title }) => {
         <Map
             mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN}
             initialViewState={{
-                longitude: coordinates.lng,
-                latitude: coordinates.lat,
-                zoom: zoom,
+                longitude: coordinates.lng ? coordinates.lng : -105.21342371919987,
+                latitude: coordinates.lat ? coordinates.lat : 20.65190150300052,
+                zoom: coordinates.lng && coordinates.lat ? zoom : 10,
             }}
             mapStyle="mapbox://styles/mapbox/streets-v9"
         >
+            {coordinates.lat && coordinates.lng &&
             <Marker
-                longitude={coordinates.lng}
-                latitude={coordinates.lat}
+                longitude={coordinates?.lng}
+                latitude={coordinates?.lat}
                 anchor="bottom-left"
             >
                 <div className="flex flex-row items-center">
@@ -29,6 +30,7 @@ const Mapbox = ({ coordinates, zoom, title }) => {
                     </span>
                 </div>
             </Marker>
+            }
         </Map>
     )
 

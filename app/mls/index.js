@@ -49,15 +49,15 @@ const transformProperty = (e) => {
     // Set Image URLS
 
     let images = []
-    const alt = `${e.propertyName} ${e.propertyTypeValue.propertyTypeValue.localizedName.strings.en_us} for sale in ${e.propertyAddress.zone.name}.`
+    const alt = `${e.propertyName} ${e.propertyTypeValue.propertyTypeValue.localizedName.strings.en_us} for sale in ${e.propertyAddress.zone.name}. Image property of MLS Vallarta ©`
     e.propertySlide.images.map((image, i) => {
         const url = `https://members.mlsvallarta.com/mls/property/image/mlsvallarta/${e.id}/hero_${image.name}.jpg`
-        const placeholder = `https://members.mlsvallarta.com/mls/property/image/mlsvallarta/${e.id}/thumbList_${image.name}.jpg`
+        const placeholder = `https://members.mlsvallarta.com/mls/property/image/mlsvallarta/${e.id}/thumb_${image.name}.jpg`
         const obj = {
             url: url,
             alt: alt,
             index: i,
-            placeholder: placeholder
+            placeholder: placeholder,
         }
         images.push(obj)
         

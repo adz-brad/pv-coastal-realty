@@ -3,7 +3,7 @@ import slugify from "slugify"
 
 export default function sitemap() {
 
-    const basePath = 'https://pv-coastal-realty.vercel.app'
+    const basePath = process.env.NEXT_SITE_BASEPATH
     const lastModified = new Date()
 
     const zones = regions.map(region => region.zones.map(zone => { return { region: region.title, zone:zone.title }}))

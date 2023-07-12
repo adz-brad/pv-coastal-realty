@@ -1,5 +1,7 @@
 import { regions } from "@/data";
 
+const basePath = process.env.NEXT_SITE_BASEPATH
+
 export const getTitleFromSlug = (string) => {
     const arr = string.split('-')
     for (var i = 0; i < arr.length; i++) {
@@ -46,19 +48,19 @@ export const getTitleFromSlug = (string) => {
       "@context": "https://schema.org",
       "@graph": [
           {
-              "@type": "BreadcrumbList",
-              "itemListElement": ${data.listItems.map((item,i) => {
-                return (
-                  `{
-                    "@type": "ListItem",
-                    "position": ${i+1},
-                    "item": {
-                        "@id": "${item.url}",
-                        "name": "${item.name}"
-                    }
-                },`
-                )
-              })}
+            "@type": "BreadcrumbList",
+            "itemListElement": ${data.map((item, i) => {
+              return (
+                `{
+                  "@type": "ListItem",
+                  "position": ${i+1},
+                  "item": {
+                      "@id": "${item.url}",
+                      "name": "${item.name}"
+                  }
+              },`
+              )
+            })}
           }
       ]
     }`
@@ -69,50 +71,53 @@ export const getTitleFromSlug = (string) => {
     return `{
       "@context": "https://schema.org",
       "@graph": [
-          {
-              "@type": "SingleFamilyResidence",
-              "address": {
-                  "@type": "PostalAddress",
-                  "streetAddress": "${data.address.street}",
-                  "addressLocality": "${data.address.city}",
-                  "addressRegion": "${data.address.state}",
-                  "postalCode": "${data.address.postalCode}"
-              },
-              "geo": {
-                  "@type": "GeoCoordinates",
-                  "latitude": ${data.address.coordinates.lat},
-                  "longitude": ${data.address.coordinates.lon}
-              }
+        {
+          "@type": "SingleFamilyResidence",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "${data.address.street}",
+            "addressLocality": "${data.address.city}",
+            "addressRegion": "${data.address.state}",
+            "postalCode": "${data.address.postalCode}",
           },
-          {
-              "@type": "${data.type}",
-              "address": {
-                  "@type": "PostalAddress",
-                  "streetAddress": "${data.address.street}",
-                  "addressLocality": "${data.address.city}",
-                  "addressRegion": "${data.address.state}",
-                  "postalCode": "${data.address.postalCode}"
-              },
-              "geo": {
-                  "@type": "GeoCoordinates",
-                  "latitude": ${data.address.coordinates.lat},
-                  "longitude": ${data.address.coordinates.lon}
-              },
-              "description": "${data.description.replace(new RegExp('\r?\n','g'), '')}",
-              "photo": {
-                  "@type": "ImageObject",
-                  "url": ${data.images?.map((image) => {
-                    return `"${image.url}"`
-                  })}          
-              }
+          "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": ${data.address.coordinates.lat},
+            "longitude": ${data.address.coordinates.lon},
           },
-          {
-              "@type": "Offer",
-              "price": "${data.price}",
-              "priceCurrency": "USD",
-          }
-      ]
-  }`
+        },
+        {
+          "@type": "${data.type}",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "${data.address.street}",
+            "addressLocality": "${data.address.city}",
+            "addressRegion": "${data.address.state}",
+            "postalCode": "${data.address.postalCode}"
+          },
+          "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": ${data.address.coordinates.lat},
+            "longitude": ${data.address.coordinates.lon}
+        },
+        "description": "${data.description.replace(new RegExp('\r?\n','g'), '')}",
+        "photo": {
+            "@type": "ImageObject",
+            "url": "${data.image}"          
+        }
+        },
+        {
+          "@type": "Product",
+          "name": "${data.title}",
+          "image": "${data.image}",
+          "offers": {
+            "@type": "Offer",
+            "price": "${data.price}",
+            "priceCurrency": "USD",
+        },
+        },
+      ],
+    }`
   }
 
   export const useAgentJSON = () => {
@@ -122,17 +127,17 @@ export const getTitleFromSlug = (string) => {
           {
               "@type": "Person",
               "name": "Marc Leblanc",
-              "url": "https://www.pvcoastalrealty.com/about",
-              "image": "https://pv-coastal-realty.vercel.app/_next/image?url=%2Fmarc-leblanc.jpg&w=1920&q=75"
+              "url": "${basePath}/about",
+              "image": "${basePath}/_next/image?url=/marc-leblanc.jpg&w=1920&q=75"
           },
           {
               "@type": "RealEstateAgent",
               "name": "Marc Leblanc",
-              "url": "https://www.pvcoastalrealty.com/about",
+              "url": "${basePath}/about",
               "image": "imageurl",
               "photo": {
                   "@type": "ImageObject",
-                  "url": "https://pv-coastal-realty.vercel.app/_next/image?url=%2Fmarc-leblanc.jpg&w=1920&q=75",
+                  "url": "${basePath}/_next/image?url=/marc-leblanc.jpg&w=1920&q=75",
                   "name": "Marc Leblanc"
               },
               "telephone": "+523223017394"

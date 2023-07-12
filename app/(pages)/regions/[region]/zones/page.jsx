@@ -4,14 +4,69 @@ import Link from "next/link"
 import slugify from "slugify"
 import Contact from "@/app/components/Contact"
 import { getTitleFromSlug, useRegionData } from "@/app/hooks"
+import JsonLd from "@/app/components/JsonLd"
+import { useBreadcrumbJSON } from "@/app/hooks"
+
+export const revalidate = 3600
+
+export async function generateMetadata({ params: { region } }) {
+  const title = getTitleFromSlug(region)
+  const data = useRegionData(title)
+  const zoneString = data.zones.map((zone, i) => {
+    if(i === data.zones.length - 1){ return ` & ${zone.title}.`}
+    else { return ` ${zone.title}`}
+  })
+  return {
+    title: `${title} | PV Coastal Realty`,
+    description: `Browse listings in the ${title} region, featuring properties in:${zoneString}`,
+    alternates: {
+      canonical: `${process.env.NEXT_SITE_BASEPATH}/regions/${region}/zones`,
+    },
+    twitter: {
+      card: 'summary',
+      title: `${title} | PV Coastal Realty`,
+      description: `Browse listings in the ${title} region, featuring properties in:${zoneString}`,
+      creator: '@pvcoastalrealty',
+      images: [{ url: data.imageUrl }],
+      url: `${process.env.NEXT_SITE_BASEPATH}/regions/${region}/zones`
+    },
+    openGraph: {
+      title: `${title} | PV Coastal Realty`,
+      description: `Browse listings in the ${title} region, featuring properties in:${zoneString}`,
+      type: 'website',
+      images: [{ url: data.imageUrl }],
+      url: `${process.env.NEXT_SITE_BASEPATH}/regions/${region}/zones`
+    },
+  }
+}
 
 const Page = ({ params: { region }}) => {
 
   const str = getTitleFromSlug(region)
   const data = useRegionData(str)
 
+  const breadcrumbData = useBreadcrumbJSON([
+    {
+      url: `${process.env.NEXT_SITE_BASEPATH}`,
+      name: 'Home'
+    },
+    {
+      url: `${process.env.NEXT_SITE_BASEPATH}/regions`,
+      name: 'Regions'
+    },
+    {
+      url: `${process.env.NEXT_SITE_BASEPATH}/regions/${str}`,
+      name: str
+    },
+    {
+      url: `${process.env.NEXT_SITE_BASEPATH}/regions/${str}/zones`,
+      name: 'Zones'
+    },
+  ])
+
   return (
     <>
+      <JsonLd data={breadcrumbData} />
       <Banner title={`${str} Zones`} />
       <div className="flex flex-col p-4 lg:p-8">
         <h2 className="text-3xl md:text-4xl font-bold pb-2 border-b">

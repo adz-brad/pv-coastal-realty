@@ -2,10 +2,48 @@ import Banner from "@/app/components/Banner"
 import Contact from "@/app/components/Contact"
 import { agents, agency } from "@/data"
 import Image from "next/image"
+import JsonLd from "@/app/components/JsonLd"
+import { useBreadcrumbJSON } from "@/app/hooks"
+
+export const metadata = {
+  title: 'The Agency | PV Coastal Realty',
+  description: 'Learn more about your PV Coastal Realty agents, specialists in buying & selling properties all over Banderas Bay, specifically in the areas surrounding Puerto Vallarta and Riviera Nayarit. Find you perfect dream home in paradise today!',
+  alternates: {
+    canonical: `${process.env.NEXT_SITE_BASEPATH}/about`,
+  },
+  twitter: {
+    card: 'summary',
+    title: 'The Agency | PV Coastal Realty',
+    description: 'Learn more about your PV Coastal Realty agents, specialists in buying & selling properties all over Banderas Bay, specifically in the areas surrounding Puerto Vallarta and Riviera Nayarit.',
+    creator: '@pvcoastalrealty',
+    images: [`/pv-coastal-realty-logo.png`],
+    url: `${process.env.NEXT_SITE_BASEPATH}/about`
+  },
+  openGraph: {
+    title: 'The Agency | PV Coastal Realty',
+    description: 'Learn more about your PV Coastal Realty agents, specialists in buying & selling properties all over Banderas Bay, specifically in the areas surrounding Puerto Vallarta and Riviera Nayarit.',
+    type: 'website',
+    images: [{url:`/pv-coastal-realty-logo.png`}],
+    url: `${process.env.NEXT_SITE_BASEPATH}/about`
+  },
+}
 
 const Page = () => {
+
+  const breadcrumbData = useBreadcrumbJSON([
+    {
+      url: `${process.env.NEXT_SITE_BASEPATH}`,
+      name: 'Home'
+    },
+    {
+      url: `${process.env.NEXT_SITE_BASEPATH}/about`,
+      name: 'Agency'
+    }
+  ])
+
   return (
     <>
+    <JsonLd data={breadcrumbData} />
     <Banner title="About Us"/>
     <div className="flex flex-col space-y-8 p-4 md:p-8 lg:py-16">
       <h2 className="text-3xl md:text-4xl font-bold pb-2 border-b">

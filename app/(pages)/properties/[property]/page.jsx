@@ -6,16 +6,42 @@ import FeaturesList from "@/app/components/FeaturesList"
 import Mapbox from "@/app/components/Map"
 import Link from "next/link"
 import Contact from "@/app/components/Contact"
-import { usePropertyJSON } from "@/app/hooks"
+import { usePropertyJSON, useBreadcrumbJSON } from "@/app/hooks"
 import JsonLd from "@/app/components/JsonLd"
-import Head from "next/head"
 
-// CREATE SEO COMPONENT THAT USES NEXT SCRIPT TAG T
+export const revalidate = 3600
+
+export async function generateMetadata({ params : { property: id }}) {
+  const property = await getProperty(id)
+  return {
+    title: `${property.title} | PV Coastal Realty`,
+    description: `${property.title} (MLV# ${property.mlvId}), located in ${property.city}, ${property.state}, Mexico, is currently listed at $${property.price} USD. Contact PV Coastal Realty today to learn more about this amazing opportunity!`,
+    alternates: {
+      canonical: `${process.env.NEXT_SITE_BASEPATH}/properties/${id}`,
+    },
+    twitter: {
+      card: 'summary',
+      title: `${property.title} | PV Coastal Realty`,
+      description: `${property.title} (MLV# ${property.mlvId}), located in ${property.city}, ${property.state}, Mexico, is currently listed at $${property.price} USD. Contact PV Coastal Realty today to learn more about this amazing opportunity!`,
+      creator: '@pvcoastalrealty',
+      images: [{ url: property.images[0].url }],
+      url: `${process.env.NEXT_SITE_BASEPATH}/properties/${id}`
+    },
+    openGraph: {
+      title: `${property.title} | PV Coastal Realty`,
+      description: `${property.title} (MLV# ${property.mlvId}), located in ${property.city}, ${property.state}, Mexico, is currently listed at $${property.price} USD. Contact PV Coastal Realty today to learn more about this amazing opportunity!`,
+      type: 'website',
+      images: [{ url: property.images[0].url }],
+      url: `${process.env.NEXT_SITE_BASEPATH}/properties/${id}`
+    },
+  }
+}
+
 const Page = async ({ params : { property: id }}) => {
 
   const property = await getProperty(id)
   
-  const jsonData = usePropertyJSON({
+  const propertyData = usePropertyJSON({
     title: property?.title,
     address: {
       street: property?.address?.street,
@@ -33,25 +59,40 @@ const Page = async ({ params : { property: id }}) => {
     type: property?.type?.en
   })
 
+  const breadcrumbData = useBreadcrumbJSON([
+    {
+      url: `${process.env.NEXT_SITE_BASEPATH}`,
+      name: 'Home'
+    },
+    {
+      url: `${process.env.NEXT_SITE_BASEPATH}/properties`,
+      name: 'Properties'
+    },
+    {
+      url: `${process.env.NEXT_SITE_BASEPATH}/properties/${id}`,
+      name: property.title
+    }
+  ])
+
   return (
     <>
-      <JsonLd data={jsonData} />
-
+      <JsonLd data={propertyData} />
+      <JsonLd data={breadcrumbData} />
       <Banner title={property?.title} image={property.images[0]?.url} />
-      <div className="flex flex-col mx-auto p-4 md:p-8 xl:px-0 xl:py-16 max-w-screen-xl space-y-8 xl:space-y-16">
+      <div className="flex flex-col mx-auto p-4 md:p-8 xl:px-0 xl:py-16 max-w-screen-2xl space-y-8 xl:space-y-16">
         <div className="flex flex-col lg:flex-row space-y-8 lg:space-y-0 lg:space-x-8 2xl:space-x-16">
           <div className="lg:w-1/2" title="Property Images">
             <ImageGallery images={property.images} />
           </div>
           <div className="flex flex-col lg:w-1/2 space-y-3">
-            <div className="flex flex-col lg:flex-row pb-2 border-b space-y-2 lg:space-y-0 lg:space-x-4">
+            <div className="flex flex-col pb-2 border-b space-y-">
               <h2 className="font-bold text-2xl md:text-3xl lg:text-4xl" title="Property Name">
                 {property?.title}
               </h2>
-              <span className="text-neutral-500/80 text-xl md:text-2xl lg:text-3xl lg:self-end" title="Price">
+              <span className="text-neutral-500/80 text-xl md:text-2xl lg:text-3xl" title="Price">
                 {property?.price?.current}
               </span>
-              <span className="lg:self-end">MLV# {property.mlvId}</span>
+              <span>MLV# {property.mlvId}</span>
             </div>
             <div className="flex flex-col">
               <div className="flex flex-row items-center space-x-3">
@@ -90,7 +131,7 @@ const Page = async ({ params : { property: id }}) => {
 
         </div>
         <div className="flex flex-col space-y-8 overflow-hidden">
-          <div className="w-full h-[350px] md:h-[500px]">
+          <div className="w-full h-[350px] md:h-[450px] lg:h-[600px]">
               <Mapbox 
                 title={property.title}
                 coordinates={{lat: property.address?.coordinates?.lat, lng: property.address?.coordinates?.lon}} 

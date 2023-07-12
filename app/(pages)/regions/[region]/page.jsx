@@ -6,6 +6,41 @@ import { useRegionData, useRegionParams } from "@/app/hooks"
 import Image from "next/image"
 import Link from "next/link"
 import slugify from "slugify"
+import JsonLd from "@/app/components/JsonLd"
+import { useBreadcrumbJSON } from "@/app/hooks"
+
+export const revalidate = 3600
+
+export async function generateMetadata({ params: { region } }) {
+  const title = getTitleFromSlug(region)
+  const data = useRegionData(title)
+  const zoneString = data.zones.map((zone, i) => {
+    if(i === data.zones.length - 1){ return ` & ${zone.title}.`}
+    else { return ` ${zone.title}`}
+  })
+  return {
+    title: `${title} | PV Coastal Realty`,
+    description: `Browse PV Coastal Realty's extensive listing database from MLS Vallarta in the ${title} region of Mexico, featuring properties in:${zoneString}`,
+    alternates: {
+      canonical: `${process.env.NEXT_SITE_BASEPATH}/regions/${region}`,
+    },
+    twitter: {
+      card: 'summary',
+      title: `${title} | PV Coastal Realty`,
+      description: `Browse listings in the ${title} region, featuring properties in:${zoneString}`,
+      creator: '@pvcoastalrealty',
+      images: [{ url: data.imageUrl }],
+      url: `${process.env.NEXT_SITE_BASEPATH}/regions/${region}`
+    },
+    openGraph: {
+      title: `${title} | PV Coastal Realty`,
+      description: `Browse listings in the ${title} region, featuring properties in:${zoneString}`,
+      type: 'website',
+      images: [{ url: data.imageUrl }],
+      url: `${process.env.NEXT_SITE_BASEPATH}/regions/${region}`
+    },
+  }
+}
 
 const Page = ({ params: { region } }) => {
   
@@ -13,8 +48,24 @@ const Page = ({ params: { region } }) => {
   const data = useRegionData(title)
   const params = useRegionParams(data)
 
+  const breadcrumbData = useBreadcrumbJSON([
+    {
+      url: `${process.env.NEXT_SITE_BASEPATH}`,
+      name: 'Home'
+    },
+    {
+      url: `${process.env.NEXT_SITE_BASEPATH}/regions`,
+      name: 'Regions'
+    },
+    {
+      url: `${process.env.NEXT_SITE_BASEPATH}/regions/${title}`,
+      name: title
+    }
+  ])
+
   return (
     <>
+      <JsonLd data={breadcrumbData} />
       <Banner title={title} image={data.imageUrl} />
       <div className="flex flex-col space-y-8 p-4 md:p-8 xl:p-16">
         <p className="lg:text-lg">

@@ -1,5 +1,5 @@
 'use client'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { searchProperties } from "@/app/mls"
 import { useSearchPayload } from '../hooks'
 import PropertyCard from './PropertyCard'
@@ -10,6 +10,9 @@ const ShowProperties = ({ region, zones }) => {
     const [ page, setPage ] = useState(1)
     const [ properties, setProperties ] = useState([])
     const [ loading, setLoading ] = useState(false)
+    const [ loadmore, setLoadmore ] = useState(false)
+
+    const scrollRef = useRef()
 
     let payload = useSearchPayload(page, region, zones)
 
@@ -25,16 +28,35 @@ const ShowProperties = ({ region, zones }) => {
             setPage(page+1)
         }
         setLoading(false)
+        setLoadmore(false)
     }
 
     useEffect(() => {
       getProperties()
   }, [])
 
+  useEffect(() => {
+    if(loadmore){
+      getProperties()
+    }
+  }, [ loadmore ])
+
+  useEffect(() => {
+    if(properties.length === 12){
+      const observer = new IntersectionObserver((entries) => {
+        const entry = entries[0];
+        if(entry.isIntersecting && !loading){
+          setLoadmore(true)
+        }
+      })
+      observer.observe(scrollRef.current)
+    }
+  }, [ properties ])
+
   const isMore = properties.length % 12 == 0
 
   return (
-    <div className="flex flex-col space-y-8 xl:space-y-16">
+    <div className="relative flex flex-col space-y-8 xl:space-y-16">
         <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {properties.length > 0 &&
             properties.map((property, i) => {
@@ -43,10 +65,9 @@ const ShowProperties = ({ region, zones }) => {
           }
         </ul>
         {isMore &&
-          <button className="button mx-auto min-w-[300px]" onClick={() => getProperties()}>
-            {loading ? <ImSpinner9 className="animate-spin mx-auto"/> : 'Show More'}
-          </button>
+          <div ref={scrollRef} className="absolute top-full -translate-y-[1264px] h-20 w-20"/>
         }
+        {loading && <ImSpinner9 className="animate-spin mx-auto text-4xl text-sky-600"/> }
     </div>
   )
 }

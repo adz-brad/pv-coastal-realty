@@ -2,6 +2,38 @@ import { getTitleFromSlug, useZoneData } from "@/app/hooks"
 import Banner from "@/app/components/Banner"
 import Contact from "@/app/components/Contact"
 import ShowProperties from "@/app/components/ShowProperties"
+import JsonLd from "@/app/components/JsonLd"
+import { useBreadcrumbJSON } from "@/app/hooks"
+
+export const revalidate = 3600
+
+export async function generateMetadata({ params: { region, zone } }) {
+  const title = getTitleFromSlug(zone)
+  const regionStr = getTitleFromSlug(region)
+  const { zone: data } = useZoneData(regionStr, title)
+  return {
+    title: `${title} | PV Coastal Realty`,
+    description: `Browse PV Coastal Realty's extensive listing database from MLS Vallarta in the ${title} zone of ${regionStr}, Mexico to find your dream home today!`,
+    alternates: {
+      canonical: `${process.env.NEXT_SITE_BASEPATH}/regions/${region}/zones/${zone}`,
+    },
+    twitter: {
+      card: 'summary',
+      title: `${title} | PV Coastal Realty`,
+      description: `Browse PV Coastal Realty's extensive listing database from MLS Vallarta in the ${title} zone of ${regionStr}, Mexico to find your dream home today!`,
+      creator: '@pvcoastalrealty',
+      images: [{ url: data.imageUrl }],
+      url: `${process.env.NEXT_SITE_BASEPATH}/regions/${region}/zones/${zone}`,
+    },
+    openGraph: {
+      title: `${title} | PV Coastal Realty`,
+      description: `Browse PV Coastal Realty's extensive listing database from MLS Vallarta in the ${title} zone of ${regionStr}, Mexico to find your dream home today!`,
+      type: 'website',
+      images: [{ url: data.imageUrl }],
+      url: `${process.env.NEXT_SITE_BASEPATH}/regions/${region}/zones/${zone}`,
+    },
+  }
+}
 
 const Page = ({ params: { region, zone } }) => {
   
@@ -9,8 +41,32 @@ const Page = ({ params: { region, zone } }) => {
   const regionStr = getTitleFromSlug(region)
   const { regionId, zone: data } = useZoneData(regionStr, title)
 
+  const breadcrumbData = useBreadcrumbJSON([
+    {
+      url: `${process.env.NEXT_SITE_BASEPATH}`,
+      name: 'Home'
+    },
+    {
+      url: `${process.env.NEXT_SITE_BASEPATH}/regions`,
+      name: 'Regions'
+    },
+    {
+      url: `${process.env.NEXT_SITE_BASEPATH}/regions/${regionStr}`,
+      name: regionStr
+    },
+    {
+      url: `${process.env.NEXT_SITE_BASEPATH}/regions/${regionStr}/zones`,
+      name: 'Zones'
+    },
+    {
+      url: `${process.env.NEXT_SITE_BASEPATH}/regions/${regionStr}/zones/${title}`,
+      name: title
+    },
+  ])
+
   return (
     <>
+      <JsonLd data={breadcrumbData} />
       <Banner title={title} image={data?.imageUrl} />
       <div className="flex flex-col space-y-8 p-4 md:p-8 xl:p-16">
         <p className="lg:text-lg">

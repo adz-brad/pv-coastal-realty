@@ -5,11 +5,50 @@ import Image from "next/image"
 import Link from "next/link"
 import slugify from "slugify"
 import Contact from "@/app/components/Contact"
+import JsonLd from "@/app/components/JsonLd"
+import { useBreadcrumbJSON } from "@/app/hooks"
+
+export const revalidate = 3600
+
+export const metadata = {
+  title: 'Regions | PV Coastal Realty',
+  description: 'Browse property listings by region, from Puerto Vallarta and Bucerias to Sayulita, San Pancho and beyond. Find you perfect dream home in paradise today!',
+  alternates: {
+    canonical: `${process.env.NEXT_SITE_BASEPATH}/regions`,
+  },
+  twitter: {
+    card: 'summary',
+    title: 'Regions | PV Coastal Realty',
+    description: 'Browse property listings by region, from Puerto Vallarta and Bucerias to Sayulita, San Pancho and beyond. Find you perfect dream home in paradise today!',
+    creator: '@pvcoastalrealty',
+    images: [`/pv-coastal-realty-logo.png`],
+    url: `${process.env.NEXT_SITE_BASEPATH}/regions`
+  },
+  openGraph: {
+    title: 'Regions | PV Coastal Realty',
+    description: 'Browse property listings by region, from Puerto Vallarta and Bucerias to Sayulita, San Pancho and beyond. Find you perfect dream home in paradise today!',
+    type: 'website',
+    images: [{url:`/pv-coastal-realty-logo.png`}],
+    url: `${process.env.NEXT_SITE_BASEPATH}/regions`
+  },
+}
 
 const Page = () => {
 
+  const breadcrumbData = useBreadcrumbJSON([
+    {
+      url: `${process.env.NEXT_SITE_BASEPATH}`,
+      name: 'Home'
+    },
+    {
+      url: `${process.env.NEXT_SITE_BASEPATH}/regions`,
+      name: 'Regions'
+    },
+  ])
+
   return (
     <>
+      <JsonLd data={breadcrumbData} />
       <Banner title="Regions" />
       <div className="flex flex-col px-4 py-8 md:p-8">
         <h2 className="text-2xl md:text-4xl font-bold pb-2 border-b">

@@ -2,10 +2,48 @@ import Banner from "@/app/components/Banner"
 import ContactForm from "@/app/components/ContactForm"
 import { MdLocationPin, MdWhatsapp, MdOutlinePhoneIphone, MdOutlineEmail } from "react-icons/md"
 import { agency } from "@/data"
+import JsonLd from "@/app/components/JsonLd"
+import { useBreadcrumbJSON } from "@/app/hooks"
+
+export const metadata = {
+  title: 'Contact Us | PV Coastal Realty',
+  description: 'Contact a PV Coastal Realty agent, specialists in buying & selling properties all over Banderas Bay, specifically in the areas surrounding Puerto Vallarta and Riviera Nayarit, to find you perfect dream home in paradise today!',
+  alternates: {
+    canonical: `${process.env.NEXT_SITE_BASEPATH}/contact`,
+  },
+  twitter: {
+    card: 'summary',
+    title: 'Contact Us | PV Coastal Realty',
+    description: 'Contact a PV Coastal Realty agent to find you perfect dream home in paradise today!',
+    creator: '@pvcoastalrealty',
+    images: [`/pv-coastal-realty-logo.png`],
+    url: `${process.env.NEXT_SITE_BASEPATH}/contact`
+  },
+  openGraph: {
+    title: 'Contact Us | PV Coastal Realty',
+    description: 'Contact a PV Coastal Realty agent to find you perfect dream home in paradise today!',
+    type: 'website',
+    images: [{url:`/pv-coastal-realty-logo.png`}],
+    url: `${process.env.NEXT_SITE_BASEPATH}/contact`
+  },
+}
 
 const Page = () => {
+
+  const breadcrumbData = useBreadcrumbJSON([
+    {
+      url: `${process.env.NEXT_SITE_BASEPATH}`,
+      name: 'Home'
+    },
+    {
+      url: `${process.env.NEXT_SITE_BASEPATH}/contact`,
+      name: 'Contact Us'
+    }
+  ])
+
   return (
     <>
+    <JsonLd data={breadcrumbData} />
     <Banner title="Contact Us"/>
     <div className="flex flex-col space-y-8 p-4 md:p-8 lg:p-16">
       <h2 className="text-3xl md:text-4xl font-bold pb-2 border-b">

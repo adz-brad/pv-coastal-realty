@@ -7,53 +7,41 @@ import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from 'react-icons/md'
 const ImageGallery = ({ images }) => {
 
     if(images.length > 0){
-    const [ current, setCurrent ] = useState({ image: images[0], i: 0 })
-    const [ lightbox, setLightbox ] = useState({ open: false, image: current})
+
+    const [ current, setCurrent ] = useState(0)
+    const [ lightbox, setLightbox ] = useState(false)
     
     const set = (dir) => {
         if(dir === 'next'){
-            if(current.i + 1 === images.length){
-                setCurrent({image: images[0], i: 0})
+            if(current + 1 === images.length){
+                setCurrent(0)
             }
             else {
-                setCurrent({ image: images[current.i + 1], i: current.i + 1})
+                setCurrent(current + 1)
             }
         }
         else if(dir ==='prev'){
-            if(current.i === 0){
-                setCurrent({ image: images[images.length - 1], i: images.length - 1})
+            if(current === 0){
+                setCurrent(images.length - 1)
             }
             else {
-                setCurrent({ image: images[current.i - 1], i: current.i - 1})
+                setCurrent(current - 1)
             }
         }
-    }
-    
-    let thumbnails;
-    
-    if(current.i === 0) {
-        thumbnails = images.slice(0, 5)
-    }
-    else if(current.i > 0 && current.i < images.length - 5 || images.length - current.i === 5) {
-        thumbnails = images.slice(current.i, current.i + 5)
-    }
-    else if(images.length - current.i < 5) {
-        thumbnails = images.slice(current.i, images.length)
-        thumbnails.push(...images.slice(0, (current.i - images.length) + 5))
     }
 
     const Thumbnails = () => {
         return (
             <ul className="grid grid-cols-5 gap-2">
-                {thumbnails?.map((image, i) => {
+                {images?.map((image, i) => {
                     return (
                         <li 
                             key={i} 
-                            className="relative h-[100px]" 
+                            className={`relative h-[100px] ${i >= current && i <= current + 4 ? 'block' : 'hidden'}`} 
                             role="button"
                             onClick={() => {
-                                setCurrent({ image: image, i: image.index});
-                                lightbox.open && setLightbox({ open: true, image: image })
+                                setCurrent(i);
+                                lightbox && setLightbox(true)
                             }}
                         >
                             <Image 
@@ -61,8 +49,7 @@ const ImageGallery = ({ images }) => {
                                 fill={true}
                                 className="rounded-sm object-cover hover:scale-105"
                                 alt={image.alt}
-                                placeholder="blur"
-                                blurDataURL={image.placeholder}
+                                quality={50}
                             />
                         </li>
                     )
@@ -74,24 +61,23 @@ const ImageGallery = ({ images }) => {
     return (
 
         <div className="flex flex-row items-center">
-            {lightbox.open && 
+            {lightbox && 
                 <Lightbox 
-                    image={current.image} 
+                    image={images[current]} 
                     thumbnails={<Thumbnails/>} 
-                    close={() => setLightbox({open: false, image: current})}
+                    close={() => setLightbox(false)}
                     set={set}
                 />
             }
             <div className="w-full space-y-2">
                 <div className="relative min-h-[350px] md:min-h-[425px] lg:min-h-[500px]" role="button">
                     <Image 
-                        src={current.image.url} 
-                        placeholder="blur"
-                        blurDataURL={current.image.placeholder}
+                        src={images[current].url} 
                         fill={true}
                         className="rounded-sm object-cover"
-                        alt={current.image.alt}
-                        onClick={() => setLightbox({ open: true, image: current.image })}
+                        alt={images[current].alt}
+                        onClick={() => setLightbox(true)}
+                        quality={100}
                     />
                                     <button
                     className="absolute flex flex-row items-center justify-center bottom-4 left-4 text-4xl drop-shadow-md hover:drop-shadow-lg hover:scale-105 bg-zinc-50/50 rounded-full"
