@@ -58,7 +58,7 @@ export const getTitleFromSlug = (string) => {
                       "@id": "${item.url ? `${basePath}/${item.url}` : `${basePath}`}",
                       "name": "${item.name}"
                   }
-              },`
+              }`
               )
             })}
           }
@@ -115,8 +115,8 @@ export const getTitleFromSlug = (string) => {
             "price": "${data.price}",
             "priceCurrency": "USD"
         }
-        },
-      ],
+        }
+      ]
     }`
   }
 
