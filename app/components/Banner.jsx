@@ -7,6 +7,7 @@ const Banner = ({ image, title }) => {
     <div className="relative h-[400px] w-full">
         <Image 
           priority
+          fetchPriority="high"
           loading="eager"
           src={image ? image : '/banner-image.webp'}
           alt={`PV Coastal Realty: ${title}`}

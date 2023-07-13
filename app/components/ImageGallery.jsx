@@ -45,7 +45,8 @@ const ImageGallery = ({ images }) => {
                             }}
                         >
                             <Image 
-                            loading="eager"
+                                priority
+                                fetchPriority="high"
                                 loading="eager"
                                 src={image.url} 
                                 fill={true}
@@ -72,7 +73,9 @@ const ImageGallery = ({ images }) => {
             }
             <div className="w-full space-y-2">
                 <div className="relative min-h-[350px] md:min-h-[425px] lg:min-h-[500px]" role="button">
-                    <Image 
+                    <Image
+                        priority
+                        fetchPriority="high" 
                         loading="eager"
                         src={images[current].url} 
                         fill={true}
