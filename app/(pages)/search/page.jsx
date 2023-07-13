@@ -1,6 +1,5 @@
 'use client'
 import Banner from "@/app/components/Banner"
-import Contact from "@/app/components/Contact"
 import Search from "@/app/components/Search"
 import SearchResults from "@/app/components/SearchResults"
 import { getPayload } from "@/data/search"
@@ -9,6 +8,10 @@ import { searchProperties } from "@/app/mls"
 import { ImSpinner9 } from 'react-icons/im'
 import JsonLd from "@/app/components/JsonLd"
 import { useBreadcrumbJSON } from "@/app/hooks"
+
+import dynamic from "next/dynamic"
+
+const Contact = dynamic(() => import('@/app/components/Contact'))
 
 const Page = () => {
 

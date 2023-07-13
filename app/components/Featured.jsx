@@ -1,5 +1,4 @@
 import { getFeatured } from "../mls"
-import Link from "next/link"
 import FeaturedCarousel from "./FeaturedCarousel"
 
 const Featured = async () => {

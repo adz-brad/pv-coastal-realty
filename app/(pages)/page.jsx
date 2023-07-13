@@ -1,12 +1,16 @@
 import Hero from "../components/Hero"
-import Featured from "../components/Featured"
-import Regions from "../components/Regions"
-import Contact from "@/app/components/Contact"
+
 import { agency } from "@/data"
 import Link from "next/link"
 import Image from "next/image"
-import JsonLd from "../components/JsonLd"
+
 import { useBreadcrumbJSON } from "../hooks"
+import dynamic from "next/dynamic"
+
+const Contact = dynamic(() => import('@/app/components/Contact'))
+const Featured = dynamic(() => import('../components/Featured'))
+const Regions = dynamic(() => import('../components/Regions'))
+const JsonLd = dynamic(() => import('../components/JsonLd'))
 
 export default async function Home() {
 

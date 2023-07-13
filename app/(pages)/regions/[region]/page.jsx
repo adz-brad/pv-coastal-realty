@@ -1,6 +1,5 @@
 import Banner from "@/app/components/Banner"
 import { getTitleFromSlug } from "@/app/hooks"
-import Contact from "@/app/components/Contact"
 import ShowProperties from "@/app/components/ShowProperties"
 import { useRegionData, useRegionParams } from "@/app/hooks"
 import Image from "next/image"
@@ -8,6 +7,10 @@ import Link from "next/link"
 import slugify from "slugify"
 import JsonLd from "@/app/components/JsonLd"
 import { useBreadcrumbJSON } from "@/app/hooks"
+
+import dynamic from "next/dynamic"
+
+const Contact = dynamic(() => import('@/app/components/Contact'))
 
 export const revalidate = 3600
 

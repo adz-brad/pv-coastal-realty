@@ -4,9 +4,12 @@ import { MdLocationPin } from 'react-icons/md'
 import Image from "next/image"
 import Link from "next/link"
 import slugify from "slugify"
-import Contact from "@/app/components/Contact"
 import JsonLd from "@/app/components/JsonLd"
 import { useBreadcrumbJSON } from "@/app/hooks"
+
+import dynamic from "next/dynamic"
+
+const Contact = dynamic(() => import('@/app/components/Contact'))
 
 export const revalidate = 3600
 

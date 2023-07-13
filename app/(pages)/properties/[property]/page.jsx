@@ -3,11 +3,14 @@ import { getProperty } from "@/app/mls"
 import ImageGallery from "@/app/components/ImageGallery"
 import { MdOutlineHomeWork, MdLocationPin } from 'react-icons/md'
 import FeaturesList from "@/app/components/FeaturesList"
-import Mapbox from "@/app/components/Map"
 import Link from "next/link"
-import Contact from "@/app/components/Contact"
 import { usePropertyJSON, useBreadcrumbJSON } from "@/app/hooks"
 import JsonLd from "@/app/components/JsonLd"
+
+import dynamic from "next/dynamic"
+
+const Contact = dynamic(() => import('@/app/components/Contact'))
+const Mapbox = dynamic(() => import('@/app/components/Map'))
 
 export const revalidate = 3600
 

@@ -5,6 +5,7 @@ import { agency } from "@/data"
 import JsonLd from "@/app/components/JsonLd"
 import { useBreadcrumbJSON } from "@/app/hooks"
 
+
 export const metadata = {
   title: 'Contact Us | PV Coastal Realty',
   description: 'Contact a PV Coastal Realty agent, specialists in buying & selling properties all over Banderas Bay, specifically in the areas surrounding Puerto Vallarta and Riviera Nayarit, to find you perfect dream home in paradise today!',

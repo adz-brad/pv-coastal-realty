@@ -1,10 +1,15 @@
 import '../styles/globals.css'
 import localFont from 'next/font/local'
 import Navbar from '../components/Navbar'
-import Footer from '../components/Footer'
-import Messenger from '../components/Messenger'
+
 import JsonLd from '../components/JsonLd'
 import { useAgentJSON } from '../hooks'
+
+import dynamic from "next/dynamic"
+
+
+const Footer = dynamic(() => import('@/app/components/Footer'))
+const Messenger = dynamic(() => import('@/app/components/Messenger'))
 
 export const metadata = {
   title: 'PV Coastal Realty | Where Dream Homes Come True!',
@@ -50,14 +55,13 @@ export default function RootLayout({ children }) {
 
     <html lang="en" className={`${kumbh.variable} ${montserrat.variable}`}>
       <JsonLd data={agentData} />
-
       <body>
         <Navbar />
           <main>
             {children}
           </main>
         <Footer />
-        {/*<Messenger />*/}
+        <Messenger />
       </body>
     </html>
 
