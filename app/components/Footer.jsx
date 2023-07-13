@@ -57,7 +57,7 @@ const Footer = () => {
                 return (   
                 <li 
                     key={i}
-                    tabIndex={i}
+                    tabIndex="0"
                 >
                     <Link href={item.path} className="hover:text-sky-500 transition-colors">
                         {item.title}
