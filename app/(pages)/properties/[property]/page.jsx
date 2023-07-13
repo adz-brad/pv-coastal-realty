@@ -1,14 +1,14 @@
 import Banner from "@/app/components/Banner"
 import { getProperty } from "@/app/mls"
-import ImageGallery from "@/app/components/ImageGallery"
 import { MdOutlineHomeWork, MdLocationPin } from 'react-icons/md'
 import FeaturesList from "@/app/components/FeaturesList"
 import Link from "next/link"
-import { usePropertyJSON, useBreadcrumbJSON, getPlaceholder } from "@/app/hooks"
+import { usePropertyJSON, useBreadcrumbJSON } from "@/app/hooks"
 import JsonLd from "@/app/components/JsonLd"
 
 import dynamic from "next/dynamic"
 
+const ImageGallery = dynamic(() => import('@/app/components/ImageGallery'))
 const Contact = dynamic(() => import('@/app/components/Contact'))
 const Mapbox = dynamic(() => import('@/app/components/Map'))
 

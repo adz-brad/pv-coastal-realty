@@ -75,7 +75,7 @@ const ImageGallery = ({ images }) => {
                         return (
                             <Image
                                 key={i}
-                                src={lightbox ? image.hero : image.single} 
+                                src={lightbox ? image.hero : i === 0 ? image.hero : image.single} 
                                 fill={true}
                                 className={`${i === current ? 'z-20' : 'z-10'} rounded-sm object-cover`}
                                 alt={image.alt}

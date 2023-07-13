@@ -31,7 +31,7 @@ const PropertyCard = ({ property, i }) => {
       <div className="relative h-2/3">
         {property.images.length > 0 ?
         <Image 
-          src={property.images[0].single} 
+          src={property.images[0].thumbnail} 
           fill={true}
           className="rounded-t-md object-cover"
           alt={property.images[0].alt}
