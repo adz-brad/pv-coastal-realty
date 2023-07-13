@@ -89,11 +89,11 @@ const Page = async ({ params : { property: id }}) => {
             <ImageGallery images={property.images} />
           </div>
           <div className="flex flex-col lg:w-1/2 space-y-3">
-            <div className="flex flex-col pb-2 border-b space-y-">
+            <div className="flex flex-col pb-2 border-b space-y-2">
               <h2 className="font-bold text-2xl md:text-3xl lg:text-4xl" title="Property Name">
                 {property?.title}
               </h2>
-              <span className="text-neutral-500/80 text-xl md:text-2xl lg:text-3xl" title="Price">
+              <span className="text-neutral-500/80 text-xl md:text-2xl" title="Price">
                 {property?.price?.current}
               </span>
               <span>MLV# {property.mlvId}</span>
@@ -106,7 +106,7 @@ const Page = async ({ params : { property: id }}) => {
                   href={`https://www.google.com/maps/search/${property.address?.street?.replace(' ','+')},+${property.address?.city?.replace(' ','+')},+${property.address?.state?.replace(' ','+')}+/@${property.address?.coordinates?.lat},${property.address?.coordinates?.lon}?entry=ttu`}
                   target="_blank"
                   referrerPolicy="no-referrer"
-                  className="lg:text-lg hover:underline"
+                  className="text-sm md:text-base hover:underline"
                 >
                   {property.address.street}, {property.address.city}, {property.address.state}
                 </a>
