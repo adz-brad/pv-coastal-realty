@@ -13,6 +13,9 @@ export const revalidate = 3600
 export const metadata = {
   title: 'Listings | PV Coastal Realty',
   description: 'Browse PV Coastal Realty listings to view properties for sale from all around Banderas Bay, including Puerto Vallarta and Riviera Nayarit, to find you perfect dream home in paradise today!',
+  other: {
+    thumbnail: '/card.jpg'
+  },
   alternates: {
     canonical: `${process.env.NEXT_SITE_BASEPATH}/about`,
   },
@@ -21,14 +24,14 @@ export const metadata = {
     title: 'Listings | PV Coastal Realty',
     description: 'Browse PV Coastal Realty listings to view properties for sale in Puerto Vallarta and Riviera Nayarit to find you perfect dream home in paradise today!',
     creator: '@pvcoastalrealty',
-    images: [`/pv-coastal-realty-logo.png`],
+    images: [`/card.jpg`],
     url: `${process.env.NEXT_SITE_BASEPATH}/properties`
   },
   openGraph: {
     title: 'Listings | PV Coastal Realty',
     description: 'Browse PV Coastal Realty listings to view properties for sale in Puerto Vallarta and Riviera Nayarit to find you perfect dream home in paradise today!',
     type: 'website',
-    images: [{url:`/pv-coastal-realty-logo.png`}],
+    images: [{url:`/card.jpg`}],
     url: `${process.env.NEXT_SITE_BASEPATH}/properties`
   },
 }

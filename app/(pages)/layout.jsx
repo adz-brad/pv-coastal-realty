@@ -20,6 +20,9 @@ export const metadata = {
   alternates: {
     canonical: process.env.NEXT_SITE_BASEPATH,
   },
+  other: {
+    thumbnail: '/card.jpg'
+  },
   verification: {
     google: process.env.NEXT_GOOGLE_VERIFICATION_TOKEN,
     yandex: process.env.NEXT_YANDEX_VERIFICATION_TOKEN,
@@ -29,6 +32,10 @@ export const metadata = {
     icon: '/pv-coastal-realty-logo.png',
     shortcut: '/pv-coastal-realty-logo.png',
     apple: '/pv-coastal-realty-logo.png',
+    other: {
+      rel: 'apple-touch-icon-precomposed',
+      url: '/pv-coastal-realty-logo.png',
+    },
   },
   twitter: {
     card: 'summary',

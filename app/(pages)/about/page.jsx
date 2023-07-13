@@ -14,19 +14,22 @@ export const metadata = {
   alternates: {
     canonical: `${process.env.NEXT_SITE_BASEPATH}/about`,
   },
+  other: {
+    thumbnail: '/card.jpg'
+  },
   twitter: {
     card: 'summary',
     title: 'The Agency | PV Coastal Realty',
     description: 'Learn more about your PV Coastal Realty agents, specialists in buying & selling properties all over Banderas Bay, specifically in the areas surrounding Puerto Vallarta and Riviera Nayarit.',
     creator: '@pvcoastalrealty',
-    images: [`/pv-coastal-realty-logo.png`],
+    images: [`/card.jpg`],
     url: `${process.env.NEXT_SITE_BASEPATH}/about`
   },
   openGraph: {
     title: 'The Agency | PV Coastal Realty',
     description: 'Learn more about your PV Coastal Realty agents, specialists in buying & selling properties all over Banderas Bay, specifically in the areas surrounding Puerto Vallarta and Riviera Nayarit.',
     type: 'website',
-    images: [{url:`/pv-coastal-realty-logo.png`}],
+    images: [{url:`/card.jpg`}],
     url: `${process.env.NEXT_SITE_BASEPATH}/about`
   },
 }

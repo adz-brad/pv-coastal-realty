@@ -19,19 +19,22 @@ export const metadata = {
   alternates: {
     canonical: `${process.env.NEXT_SITE_BASEPATH}/regions`,
   },
+  other: {
+    thumbnail: '/card.jpg'
+  },
   twitter: {
     card: 'summary',
     title: 'Regions | PV Coastal Realty',
     description: 'Browse property listings by region, from Puerto Vallarta and Bucerias to Sayulita, San Pancho and beyond. Find you perfect dream home in paradise today!',
     creator: '@pvcoastalrealty',
-    images: [`/pv-coastal-realty-logo.png`],
+    images: [`/card.jpg`],
     url: `${process.env.NEXT_SITE_BASEPATH}/regions`
   },
   openGraph: {
     title: 'Regions | PV Coastal Realty',
     description: 'Browse property listings by region, from Puerto Vallarta and Bucerias to Sayulita, San Pancho and beyond. Find you perfect dream home in paradise today!',
     type: 'website',
-    images: [{url:`/pv-coastal-realty-logo.png`}],
+    images: [{url:`/card.jpg`}],
     url: `${process.env.NEXT_SITE_BASEPATH}/regions`
   },
 }

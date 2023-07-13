@@ -12,19 +12,22 @@ export const metadata = {
   alternates: {
     canonical: `${process.env.NEXT_SITE_BASEPATH}/contact`,
   },
+  other: {
+    thumbnail: '/card.jpg'
+  },
   twitter: {
     card: 'summary',
     title: 'Contact Us | PV Coastal Realty',
     description: 'Contact a PV Coastal Realty agent to find you perfect dream home in paradise today!',
     creator: '@pvcoastalrealty',
-    images: [`/pv-coastal-realty-logo.png`],
+    images: [`/card.jpg`],
     url: `${process.env.NEXT_SITE_BASEPATH}/contact`
   },
   openGraph: {
     title: 'Contact Us | PV Coastal Realty',
     description: 'Contact a PV Coastal Realty agent to find you perfect dream home in paradise today!',
     type: 'website',
-    images: [{url:`/pv-coastal-realty-logo.png`}],
+    images: [{url:`/card.jpg`}],
     url: `${process.env.NEXT_SITE_BASEPATH}/contact`
   },
 }

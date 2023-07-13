@@ -22,6 +22,9 @@ export async function generateMetadata({ params : { property: id }}) {
     alternates: {
       canonical: `${process.env.NEXT_SITE_BASEPATH}/properties/${id}`,
     },
+    other: {
+      thumbnail: property.images[0].single
+    },
     twitter: {
       card: 'summary',
       title: `${property.title} | PV Coastal Realty`,

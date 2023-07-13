@@ -25,6 +25,9 @@ export async function generateMetadata({ params: { region } }) {
     alternates: {
       canonical: `${process.env.NEXT_SITE_BASEPATH}/regions/${region}/zones`,
     },
+    other: {
+      thumbnail: data.imageUrl
+    },
     twitter: {
       card: 'summary',
       title: `${title} | PV Coastal Realty`,
