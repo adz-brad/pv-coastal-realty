@@ -45,6 +45,7 @@ const ImageGallery = ({ images }) => {
                             }}
                         >
                             <Image 
+                            loading="eager"
                                 loading="eager"
                                 src={image.url} 
                                 fill={true}
