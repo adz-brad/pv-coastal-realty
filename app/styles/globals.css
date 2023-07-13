@@ -13,7 +13,7 @@
   }
 
   .button {
-    @apply mt-auto px-4 py-3 rounded-sm shadow-md bg-sky-600 hover:brightness-125 text-zinc-50 text-center text-xl font-medium font-brand;
+    @apply mt-auto px-4 py-3 rounded-sm shadow-md bg-sky-700 hover:brightness-125 text-zinc-50 text-center text-xl font-medium font-brand;
   }
 
   .form-input, .form-textarea, .form-select {
