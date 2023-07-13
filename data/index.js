@@ -355,7 +355,7 @@ export const navMenu = [
     },
     {
         title: 'Search',
-        path: '/search'
+        path: '/mls-search'
     },
     {
         title: 'About',
