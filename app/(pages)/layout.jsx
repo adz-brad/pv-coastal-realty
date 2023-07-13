@@ -33,13 +33,13 @@ export const metadata = {
     title: 'PV Coastal Realty | Where Dream Homes Come True!',
     description: 'Discover your paradise with PV Coastal Realty, your expert agents for Puerto Vallarta and Riviera Nayarit real estate. Find your dream home in Banderas Bay today!',
     creator: '@pvcoastalrealty',
-    images: [`/card.png`],
+    images: [`/card.jpg`],
   },
   openGraph: {
     title: 'PV Coastal Realty | Where Dream Homes Come True!',
     description: 'Discover your paradise with PV Coastal Realty, your expert agents for Puerto Vallarta and Riviera Nayarit real estate. Find your dream home in Banderas Bay today!',
     type: 'website',
-    images: [{url:`/card.png`}],
+    images: [{url:`/card.jpg`}],
     url: process.env.NEXT_SITE_BASEPATH
   },
 }
