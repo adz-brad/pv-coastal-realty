@@ -112,7 +112,7 @@ export const getTitleFromSlug = (string) => {
           "image": "${data.image}",
           "offers": {
             "@type": "Offer",
-            "price": "${data.price}",
+            "price": ${parseFloat(data.price.replace(/[^a-zA-Z0-9-.]/g,'')).toFixed(2)},
             "priceCurrency": "USD"
         }
         }
@@ -134,7 +134,7 @@ export const getTitleFromSlug = (string) => {
               "@type": "RealEstateAgent",
               "name": "Marc Leblanc",
               "url": "${basePath}/about",
-              "image": "imageurl",
+              "image": "${basePath}/marc-leblanc.jpg",
               "photo": {
                   "@type": "ImageObject",
                   "url": "${basePath}/marc-leblanc.jpg",
