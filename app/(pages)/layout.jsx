@@ -7,6 +7,8 @@ import { useAgentJSON } from '../hooks'
 
 import dynamic from "next/dynamic"
 
+import Script from 'next/script'
+
 
 const Footer = dynamic(() => import('@/app/components/Footer'))
 const Messenger = dynamic(() => import('@/app/components/Messenger'))
@@ -54,6 +56,23 @@ export default function RootLayout({ children }) {
   return (
 
     <html lang="en" className={`${kumbh.variable} ${montserrat.variable}`}>
+      <Script 
+        src="https://www.googletagmanager.com/gtag/js?id=G-RZ9TTZJ092" 
+        strategy="afterInteractive" 
+      />
+      <Script
+        id='google-analytics'
+        strategy="afterInteractive"
+        dangerouslySetInnerHTML={{
+          __html: `
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'G-RZ9TTZJ092');
+        `,
+        }}
+      />
       <JsonLd data={agentData} />
       <body>
         <Navbar />
