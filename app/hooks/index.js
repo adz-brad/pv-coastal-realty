@@ -55,7 +55,7 @@ export const getTitleFromSlug = (string) => {
                   "@type": "ListItem",
                   "position": ${i+1},
                   "item": {
-                      "@id": ${item.url ? `${basePath}/${item.url}` : `${basePath}`},
+                      "@id": "${item.url ? `${basePath}/${item.url}` : `${basePath}`}"",
                       "name": "${item.name}"
                   }
               },`
@@ -84,7 +84,7 @@ export const getTitleFromSlug = (string) => {
             "@type": "GeoCoordinates",
             "latitude": ${data.address.coordinates.lat},
             "longitude": ${data.address.coordinates.lon},
-          },
+          }
         },
         {
           "@type": "${data.type}",
@@ -114,7 +114,7 @@ export const getTitleFromSlug = (string) => {
             "@type": "Offer",
             "price": "${data.price}",
             "priceCurrency": "USD",
-        },
+        }
         },
       ],
     }`
