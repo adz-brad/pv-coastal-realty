@@ -66,6 +66,8 @@ const Page = () => {
                         src={region.imageUrl} 
                         fill={true}
                         className="rounded-l-md object-cover"
+                        placeholder="blur"
+                        blurDataURL={region.imageUrl}
                     />
                     </div>
                 <div className="flex flex-col lg:w-1/2 lg:space-y-2">

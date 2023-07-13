@@ -69,7 +69,7 @@ const Page = ({ params: { region } }) => {
   return (
     <>
       <JsonLd data={breadcrumbData} />
-      <Banner title={title} image={data.imageUrl} />
+      <Banner title={title} image={data.imageUrl} placeholder={data.imageUrl} />
       <div className="flex flex-col space-y-8 p-4 md:p-8 xl:p-16">
         <p className="lg:text-lg">
           {data.description}

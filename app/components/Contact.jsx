@@ -9,6 +9,8 @@ const Contact = () => {
           fill={true}
           className="object-cover"
           alt="PV Coastal Realty: Contact Us Today To Find Your Dream Home In Paradise"
+          placeholder="blur"
+          blurDataURL="/paradise-beach.webp"
         />
         <div className="absolute h-full w-full bg-gradient-to-b from-zinc-50 via-zinc-50/90 to-zinc-100/20" />
       </div>

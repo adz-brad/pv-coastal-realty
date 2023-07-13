@@ -23,9 +23,8 @@ const transformProperty = (e) => {
 
     // Set Features
 
-    let features = []
     const selectedFeatures = e.features.filter(feature => feature.featureValue.propertyFeatureMeta.localizedName.strings.en_us === 'Bedrooms' | feature.featureValue.propertyFeatureMeta.localizedName.strings.en_us === 'Bathrooms' | feature.featureValue.propertyFeatureMeta.localizedName.strings.en_us === 'Construction Size (M2)')
-    selectedFeatures.map((feature) => {
+    const features = selectedFeatures.map((feature) => {
         let value;
         if(feature.featureValue.propertyFeatureMeta.type === 'NUMBER'){
             value = feature.featureValue.intValue
@@ -36,33 +35,32 @@ const transformProperty = (e) => {
         else if(feature.featureValue.propertyFeatureMeta.type === 'TEXT'){
             value = feature.featureValue.decimalValue
         }
-        const obj = {
+        return {
             title: {
                 "en": feature?.featureValue?.propertyFeatureMeta?.localizedName?.strings?.en_us,
                 "es": feature?.featureValue?.propertyFeatureMeta?.localizedName?.strings?.es_mx
             },
             value: value
         }
-    features.push(obj)
     })
 
     // Set Image URLS
 
-    let images = []
     const alt = `${e.propertyName} ${e.propertyTypeValue.propertyTypeValue.localizedName.strings.en_us} for sale in ${e.propertyAddress.zone.name}. Image property of MLS Vallarta ©`
-    e.propertySlide.images.map((image, i) => {
-        const url = `https://members.mlsvallarta.com/mls/property/image/mlsvallarta/${e.id}/hero_${image.name}.jpg`
-        const placeholder = `https://members.mlsvallarta.com/mls/property/image/mlsvallarta/${e.id}/thumb_${image.name}.jpg`
-        const obj = {
-            url: url,
+    const images = e.propertySlide.images.map((image, i) => {
+        const hero = `https://members.mlsvallarta.com/mls/property/image/mlsvallarta/${e.id}/hero_${image.name}.jpg`
+        const thumbList = `https://members.mlsvallarta.com/mls/property/image/mlsvallarta/${e.id}/thumb_${image.name}.jpg`
+        const thumbnail = `https://members.mlsvallarta.com/mls/property/image/mlsvallarta/${e.id}/thumbList_${image.name}.jpg`
+        const single = `https://members.mlsvallarta.com/mls/property/image/mlsvallarta/${e.id}/single_${image.name}.jpg`
+        return {
+            hero: hero,
+            thumbnail: thumbnail,
+            single: single,
+            thumbList: thumbList,
             alt: alt,
             index: i,
-            placeholder: placeholder,
         }
-        images.push(obj)
-        
     })
-    //images.sort((i1, i2) => (i1.order > i2.order) ? 1 : (i1.order < i2.order) ? -1 : 0)
 
     // Set Property Fields
 

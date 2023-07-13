@@ -21,7 +21,7 @@ const FeaturedCard = ({ property }) => {
     },
     price: property?.price?.current,
     description: property?.description?.en,
-    image: property?.images[0].url,
+    image: property?.images[0].single,
     type: property?.type?.en
   })
 
@@ -62,8 +62,11 @@ const FeaturedCard = ({ property }) => {
         </Link>
       </div>
       <div className="relative lg:w-1/2 h-[350px] lg:min-h-[500px]">
-        <Image 
-          src={property.images[0].url} 
+        <Image
+          priority
+          fetchPriority="high"
+          loading="eager"
+          src={property.images[0].single} 
           fill={true}
           className="rounded-r-md object-cover"
           alt={property.images[0].alt}

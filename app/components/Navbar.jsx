@@ -28,6 +28,8 @@ const Navbar = () => {
                 width={120}
                 height={120}
                 className="scale-75 md:scale-100"
+                placeholder="blur"
+                blurDataURL="/pv-coastal-realty-logo.png"
             />
         </Link>
 

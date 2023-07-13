@@ -20,7 +20,7 @@ const PropertyCard = ({ property, i }) => {
     },
     price: property?.price?.current,
     description: property?.description?.en,
-    image: property?.images[0]?.url,
+    image: property?.images[0]?.single,
     type: property?.type?.en
   })
 
@@ -31,12 +31,13 @@ const PropertyCard = ({ property, i }) => {
       <div className="relative h-2/3">
         {property.images.length > 0 ?
         <Image 
-          src={property.images[0].url} 
+          src={property.images[0].single} 
           fill={true}
           className="rounded-t-md object-cover"
           alt={property.images[0].alt}
-          priority
           loading="eager"
+          fetchPriority="high"
+          priority
         />
         :
         <Image 

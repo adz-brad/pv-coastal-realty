@@ -1,6 +1,6 @@
 import Image from "next/image"
 
-const Banner = ({ image, title }) => {
+const Banner = ({ image, title, placeholder }) => {
 
   return (
 
@@ -14,6 +14,8 @@ const Banner = ({ image, title }) => {
           fill={true}
           className="object-cover z-10"
           quality={100}
+          placeholder={placeholder ? 'blur' : 'empty'}
+          blurDataURL={placeholder ? placeholder : '/banner-image.webp'}
         />
         <div className="absolute top-0 left-0 z-20 bg-gradient-to-b from-zinc-900/70 via-zinc-900/40 to-transparent h-full w-full" />
         <div className="absolute top-1/2 left-1/2 -translate-y-4/5 -translate-x-1/2 z-30 w-screen max-w-screen-xl text-center px-4">

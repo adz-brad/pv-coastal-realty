@@ -10,6 +10,8 @@ const Hero = () => {
           fill={true}
           className="object-cover z-10"
           alt="PV Coastal Realty: Discover Your Paradise"
+          placeholder="blur"
+          blurDataURL="/vallarta-hero.webp"
         />
         <div className="absolute top-0 left-0 z-20 bg-gradient-to-b from-transparent via-zinc-900/70 to-transparent h-full w-full" />
         <div className="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 w-screen max-w-screen-xl z-30 p-4">
