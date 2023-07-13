@@ -55,7 +55,7 @@ export const getTitleFromSlug = (string) => {
                   "@type": "ListItem",
                   "position": ${i+1},
                   "item": {
-                      "@id": "${item.url ? `${basePath}/${item.url}` : `${basePath}`}"",
+                      "@id": "${item.url ? `${basePath}/${item.url}` : `${basePath}`}",
                       "name": "${item.name}"
                   }
               },`
@@ -78,12 +78,12 @@ export const getTitleFromSlug = (string) => {
             "streetAddress": "${data.address.street}",
             "addressLocality": "${data.address.city}",
             "addressRegion": "${data.address.state}",
-            "postalCode": "${data.address.postalCode}",
+            "postalCode": "${data.address.postalCode}"
           },
           "geo": {
             "@type": "GeoCoordinates",
             "latitude": ${data.address.coordinates.lat},
-            "longitude": ${data.address.coordinates.lon},
+            "longitude": ${data.address.coordinates.lon}
           }
         },
         {
@@ -113,7 +113,7 @@ export const getTitleFromSlug = (string) => {
           "offers": {
             "@type": "Offer",
             "price": "${data.price}",
-            "priceCurrency": "USD",
+            "priceCurrency": "USD"
         }
         },
       ],
