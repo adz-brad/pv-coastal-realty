@@ -38,6 +38,8 @@ const PropertyCard = ({ property, i }) => {
           loading="eager"
           fetchPriority="high"
           priority
+          placeholder="blur"
+          blurDataURL={property.images[0].placeholder}
         />
         :
         <Image 

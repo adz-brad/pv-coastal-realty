@@ -48,6 +48,8 @@ const ImageGallery = ({ images }) => {
                                 fill={true}
                                 className="rounded-sm object-cover hover:scale-105"
                                 alt={image.alt}
+                                placeholder="blur"
+                                blurDataURL={image.placeholder}
                             />
                         </li>
                     )
@@ -64,7 +66,8 @@ const ImageGallery = ({ images }) => {
                         <div 
                             className="fixed top-4 right-4 flex flex-row items-center space-x-2 text-zinc-50 text-lg" 
                             role="button"
-                            onClick={() => setLightbox(false)}  
+                            onClick={() => setLightbox(false)}
+                            title="Open Image Lightbox"
                         >
                             <span>Close</span>
                             <MdCloseFullscreen className="text-3xl drop-shadow-md" />
@@ -82,18 +85,22 @@ const ImageGallery = ({ images }) => {
                                 disabled={lightbox}
                                 onClick={() => setLightbox(true)}
                                 quality={100}
+                                placeholder="blur"
+                                blurDataURL={image.placeholder}
                             />
                         )
                     })}
                 <button
                     className="absolute flex flex-row items-center justify-center bottom-4 left-4 text-4xl drop-shadow-md hover:drop-shadow-lg hover:scale-105 bg-zinc-50/50 rounded-full z-30"
                     onClick={() => set('prev')}
+                    title="Previous Image"
                 >
                     <MdKeyboardArrowLeft/>
                 </button>
                 <button
                     className="absolute flex flex-row items-center justify-center bottom-4 right-4 text-4xl drop-shadow-md hover:drop-shadow-lg hover:scale-105 bg-zinc-50/50 rounded-full z-30"
                     onClick={() => set('next')}
+                    title="Next Image"
                 >
                     <MdKeyboardArrowRight/>
                 </button>

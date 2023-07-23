@@ -8,6 +8,8 @@ import https from "https"
 
 import { cache } from 'react'
 
+import { getPlaiceholder } from "plaiceholder";
+
 const agent = new https.Agent({  
     rejectUnauthorized: false
   });
@@ -24,7 +26,15 @@ const options = {
 
 addOAuthInterceptor(client, options);
 
-const transformProperty = (e) => {
+const getPlaceholder = async (url) => {
+    const buffer = await fetch(url).then(async (res) =>
+    Buffer.from(await res.arrayBuffer())
+  );
+    const { base64 } = await getPlaiceholder(buffer)
+    return base64
+}
+
+const transformProperty = async (e) => {
 
     // Set Features
 
@@ -52,11 +62,12 @@ const transformProperty = (e) => {
     // Set Image URLS
 
     const alt = `${e.propertyName} ${e.propertyTypeValue.propertyTypeValue.localizedName.strings.en_us} for sale in ${e.propertyAddress.zone.name}. Image property of MLS Vallarta ©`
-    const images = e.propertySlide.images.map((image, i) => {
+    const images = await Promise.all(e.propertySlide.images.map(async(image, i) => {
         const hero = `https://members.mlsvallarta.com/mls/property/image/mlsvallarta/${e.id}/hero_${image.name}.jpg`
         const thumbList = `https://members.mlsvallarta.com/mls/property/image/mlsvallarta/${e.id}/thumb_${image.name}.jpg`
         const thumbnail = `https://members.mlsvallarta.com/mls/property/image/mlsvallarta/${e.id}/thumbList_${image.name}.jpg`
         const single = `https://members.mlsvallarta.com/mls/property/image/mlsvallarta/${e.id}/single_${image.name}.jpg`
+        const placeholder = process.env.NODE_ENV === 'production' ? await getPlaceholder(thumbnail) : thumbnail
         return {
             hero: hero,
             thumbnail: thumbnail,
@@ -64,8 +75,9 @@ const transformProperty = (e) => {
             thumbList: thumbList,
             alt: alt,
             index: i,
+            placeholder: placeholder
         }
-    })
+    }))
 
     // Set Property Fields
 
@@ -114,7 +126,7 @@ export const getProperty = cache(async (id) => {
         method: 'POST',
         maxBodyLength: Infinity,
         url: `https://members.mlsvallarta.com/mls/mlsvallarta/api/property/${id}`,
-        headers: {'Content-Type': 'application/json' },
+        headers: {'Content-Type': 'application/json', 'Cache-Control': 'max-age=86400'},
         data : JSON.stringify({propertyId: `${id}`}),
         httpsAgent: agent
     }
