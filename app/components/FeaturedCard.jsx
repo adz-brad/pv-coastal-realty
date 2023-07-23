@@ -63,10 +63,7 @@ const FeaturedCard = ({ property }) => {
       </div>
       <div className="relative lg:w-1/2 h-[350px] lg:min-h-[500px]">
         <Image
-          priority
-          fetchPriority="high"
-          loading="eager"
-          src={property?.images[0].image} 
+          src={property?.images[0].seoImage} 
           fill={true}
           className="rounded-r-md object-cover"
           alt={property?.images[0].alt}
