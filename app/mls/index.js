@@ -73,13 +73,12 @@ const transformProperty = async (e) => {
     const images = await Promise.all(e.propertySlide.images.map(async(image, i) => {
         const imageUrl = `https://members.mlsvallarta.com/mls/property/image/mlsvallarta/${e.id}/hero_${image.name}.jpg`
         const seoImageUrl = `https://members.mlsvallarta.com/mls/property/image/mlsvallarta/${e.id}/single_${image.name}.jpg`
-        const placeholderUrl = `https://members.mlsvallarta.com/mls/property/image/mlsvallarta/${e.id}/thumb_${image.name}.jpg`
+        const placeholderUrl = `https://members.mlsvallarta.com/mls/property/image/mlsvallarta/${e.id}/thumbList_${image.name}.jpg`
         if(i === 0) {
-            const cdnImageUrl = await getImage(imageUrl)
             const thumbnailImageUrl = await getImage(placeholderUrl)
             const placeholder = await getPlaceholder(thumbnailImageUrl)
             return {
-                image: cdnImageUrl,
+                image: imageUrl,
                 thumbnail: thumbnailImageUrl,
                 seoImage: seoImageUrl,
                 placeholder: placeholder,

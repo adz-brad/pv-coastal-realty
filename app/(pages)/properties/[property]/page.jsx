@@ -89,10 +89,9 @@ const Page = async ({ params : { property: id }}) => {
     else {
       const thumbnail = await getImage(image.thumbnail)
       return {
-        image: await getImage(image.image),
-        thumbnail: thumbnail,
+        ...image,
         placeholder: await getPlaceholder(thumbnail),
-        alt: image.alt
+
       }
     }
   }))

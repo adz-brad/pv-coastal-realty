@@ -31,12 +31,10 @@ const PropertyCard = ({ property, i }) => {
       <div className="relative h-2/3">
         {property.images.length > 0 ?
         <Image 
-          src={property.images[0].image} 
+          src={property.images[0].seoImage} 
           fill={true}
           className="rounded-t-md object-cover"
           alt={property.images[0].alt}
-          loading="eager"
-          fetchPriority="high"
           priority
           placeholder="blur"
           blurDataURL={property.images[0].placeholder}

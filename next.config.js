@@ -4,6 +4,16 @@ const nextConfig = {
     async headers() {
         return [
           {
+            source: '/(.*).jpg',
+            headers: [
+              {
+                key: 'Cache-Control',
+                value:
+                  'public, max-age=2419200, s-maxage=2419200, stale-while-revalidate=2419200',
+              },
+            ],
+          },
+          {
             source: '/_next/image(.*)',
             headers: [
               {
@@ -19,7 +29,7 @@ const nextConfig = {
       },
     images: {
         formats: ['image/avif', 'image/webp'],
-        unoptimized: false,
+        unoptimized: true,
         domains: ['members.mlsvallarta.com', 'cdn.mlsvallarta.com'],
     },
     experimental: {

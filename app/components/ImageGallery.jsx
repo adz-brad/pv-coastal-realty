@@ -1,4 +1,5 @@
 'use client'
+
 import { useState } from "react"
 import Image from "next/image"
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight, MdCloseFullscreen } from 'react-icons/md'
@@ -78,7 +79,7 @@ const ImageGallery = ({ images }) => {
                         return (
                             <Image
                                 key={i}
-                                src={image.image} 
+                                src={lightbox ? image.image : image.seoImage} 
                                 fill={true}
                                 className={`${i === current ? 'z-20' : 'z-10'} rounded-sm object-cover`}
                                 alt={image.alt}
