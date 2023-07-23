@@ -1,14 +1,15 @@
-import { regions } from "@/data";
-
+import { regions } from "@/data"
+import { cache } from 'react'
+ 
 const basePath = process.env.NEXT_SITE_BASEPATH
 
-export const getTitleFromSlug = (string) => {
+export const getTitleFromSlug = cache((string) => {
     const arr = string.split('-')
     for (var i = 0; i < arr.length; i++) {
       arr[i] = arr[i].charAt(0).toUpperCase() + arr[i].slice(1);
     }
     return arr.join(' ')
-  }
+  })
 
   export const useSearchPayload = (page, region, zones) => {
     return {
@@ -27,21 +28,21 @@ export const getTitleFromSlug = (string) => {
     }
   }
 
-  export const useRegionData = (region) => {
+  export const useRegionData = cache((region) => {
     return regions.filter(e => e.title.toLowerCase() === region.toLowerCase())[0]
-  }
+  })
 
-  export const useRegionParams = (region) => {
+  export const useRegionParams = cache((region) => {
     return {
       regionId: region.id,
       zoneIds: region.zones.map(zone => { return zone.id })
     }
-  }
+  })
 
-  export const useZoneData = (region, zone) => {
+  export const useZoneData = cache((region, zone) => {
     const data = useRegionData(region)
     return {regionId: data.id, zone: data.zones.filter(e => e.title.toLowerCase() === zone.toLowerCase())[0]}
-  }
+  })
 
   export const useBreadcrumbJSON = (data) => {
     return `{
@@ -66,7 +67,7 @@ export const getTitleFromSlug = (string) => {
     }`
   }
 
-  export const usePropertyJSON = (data) => {
+  export const usePropertyJSON = cache((data) => {
    
     return `{
       "@context": "https://schema.org",
@@ -100,7 +101,7 @@ export const getTitleFromSlug = (string) => {
             "latitude": ${data.address.coordinates.lat},
             "longitude": ${data.address.coordinates.lon}
         },
-        "description": "${data.description.replace(new RegExp('\r?\n','g'), '')}",
+        "description": "${data.description?.replace(new RegExp('\r?\n','g'), '')}",
         "photo": {
             "@type": "ImageObject",
             "url": "${data.image}"          
@@ -112,15 +113,15 @@ export const getTitleFromSlug = (string) => {
           "image": "${data.image}",
           "offers": {
             "@type": "Offer",
-            "price": ${parseFloat(data.price.replace(/[^a-zA-Z0-9-.]/g,'')).toFixed(2)},
+            "price": ${parseFloat(data.price?.replace(/[^a-zA-Z0-9-.]/g,'')).toFixed(2)},
             "priceCurrency": "USD"
         }
         }
       ]
     }`
-  }
+  })
 
-  export const useAgentJSON = () => {
+  export const useAgentJSON = cache(() => {
     return `{
       "@context": "https://schema.org",
       "@graph": [
@@ -144,4 +145,4 @@ export const getTitleFromSlug = (string) => {
           }
       ]
   }`
-  }
+  })

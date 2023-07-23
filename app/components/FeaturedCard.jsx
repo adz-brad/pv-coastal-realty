@@ -26,36 +26,36 @@ const FeaturedCard = ({ property }) => {
   })
 
   return (
-    <div id={property.id} className="carousel-item w-full flex flex-col-reverse lg:flex-row lg:space-x-8 py-4 lg:py-8" >
+    <div id={property?.id} className="carousel-item w-full flex flex-col-reverse lg:flex-row lg:space-x-8 py-4 lg:py-8" >
       <JsonLd data={jsonData} />
       <div className="flex flex-col grow lg:w-1/2 my-4 lg:my-0">
         <div className="flex flex-col space-y-2">
           <div className="flex flex-col lg:space-x-2 space-y-2">
             <h3 className="font-medium text-2xl md:text-3xl">
-              {property.title}
+              {property?.title}
             </h3>
             <span className="text-xl md:text-2xl text-neutral-500">
-              {property.price.current}
+              {property?.price.current}
             </span>
           </div>
           <div className="flex flex-row items-center space-x-1">
             <MdLocationPin className="text-sky-600 text-2xl" />
             <span className="text-lg">
-              {property.address.city}, {property.address.state}
+              {property?.address.city}, {property?.address.state}
             </span>
           </div>
         </div>
         <div className="hidden lg:flex flex-col space-y-2 my-2 lg:my-auto">
-          {property.description.en}
+          {property?.description.en}
         </div>
-        { property.features &&
+        { property?.features &&
           <div className="flex flex-col space-y-2 my-4 lg:my-auto">
             <span className="text-2xl">Features</span>
-            <FeaturesList features={property.features} />
+            <FeaturesList features={property?.features} />
           </div>
         }
         <Link 
-          href={`/properties/${property.id}`} 
+          href={`/properties/${property?.id}`} 
           className="button"
         >
             View Property
@@ -66,10 +66,10 @@ const FeaturedCard = ({ property }) => {
           priority
           fetchPriority="high"
           loading="eager"
-          src={property.images[0].single} 
+          src={property?.images[0].single} 
           fill={true}
           className="rounded-r-md object-cover"
-          alt={property.images[0].alt}
+          alt={property?.images[0].alt}
         />
       </div>
     </div> 

@@ -38,3 +38,5 @@ next-env.d.ts
 instructions.txt
 
 yarn.lock*
+*.lock
+yarn.lock

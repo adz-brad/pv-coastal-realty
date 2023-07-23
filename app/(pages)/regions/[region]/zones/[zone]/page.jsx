@@ -8,7 +8,7 @@ import dynamic from "next/dynamic"
 
 const Contact = dynamic(() => import('@/app/components/Contact'))
 
-export const revalidate = 3600
+export const revalidate = 86400
 
 export async function generateMetadata({ params: { region, zone } }) {
   const title = getTitleFromSlug(zone)

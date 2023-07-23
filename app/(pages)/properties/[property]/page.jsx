@@ -1,5 +1,5 @@
 import Banner from "@/app/components/Banner"
-import { getProperty } from "@/app/mls"
+import { getProperty, preload } from "@/app/mls"
 import { MdOutlineHomeWork, MdLocationPin } from 'react-icons/md'
 import FeaturesList from "@/app/components/FeaturesList"
 import Link from "next/link"
@@ -12,10 +12,12 @@ const ImageGallery = dynamic(() => import('@/app/components/ImageGallery'))
 const Contact = dynamic(() => import('@/app/components/Contact'))
 const Mapbox = dynamic(() => import('@/app/components/Map'))
 
-export const revalidate = 3600
+export const revalidate = 86400
 
 export async function generateMetadata({ params : { property: id }}) {
+  preload(id)
   const property = await getProperty(id)
+
   return {
     title: `${property.title} | PV Coastal Realty`,
     description: `${property.title} (MLV# ${property.mlvId}), located in ${property.city}, ${property.state}, Mexico, is currently listed at $${property.price} USD. Contact PV Coastal Realty today to learn more about this amazing opportunity!`,
@@ -45,6 +47,7 @@ export async function generateMetadata({ params : { property: id }}) {
 
 const Page = async ({ params : { property: id }}) => {
 
+  preload(id)
   const property = await getProperty(id)
 
   const propertyData = usePropertyJSON({

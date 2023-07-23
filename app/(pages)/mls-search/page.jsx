@@ -59,7 +59,6 @@ const Page = () => {
         const entry = entries[0];
         if(entry.isIntersecting && !loading){
           setLoadmore(true)
-          console.log(true)
         }
       })
       observer.observe(scrollRef.current)

@@ -9,6 +9,8 @@ const Featured = dynamic(() => import('@/app/components/Featured'))
 const Regions = dynamic(() => import('@/app/components/Regions'))
 const JsonLd = dynamic(() => import('@/app/components/JsonLd'))
 
+export const revalidate = 86400
+
 export default async function Home() {
 
   const breadcrumbData = useBreadcrumbJSON([

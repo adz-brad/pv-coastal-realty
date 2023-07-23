@@ -1,7 +1,12 @@
 'use server'
+
+import 'server-only'
+
 import addOAuthInterceptor from 'axios-oauth-1.0a'
 import axios from "axios"
 import https from "https"
+
+import { cache } from 'react'
 
 const agent = new https.Agent({  
     rejectUnauthorized: false
@@ -103,7 +108,7 @@ const transformProperty = (e) => {
     return newProperty
 }
 
-export const getProperty = async (id) => {
+export const getProperty = cache(async (id) => {
 
     const config = {
         method: 'POST',
@@ -124,6 +129,10 @@ export const getProperty = async (id) => {
     else { 
         return null
     }
+})
+
+export const preload = (id) => {
+    void getProperty(id)
 }
 
 
