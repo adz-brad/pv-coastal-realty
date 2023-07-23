@@ -1,5 +1,5 @@
 import Banner from "@/app/components/Banner"
-import { getProperty, preload } from "@/app/mls"
+import { getImage, getPlaceholder, getProperty } from "@/app/mls"
 import { MdOutlineHomeWork, MdLocationPin } from 'react-icons/md'
 import FeaturesList from "@/app/components/FeaturesList"
 import Link from "next/link"
@@ -15,7 +15,7 @@ const Mapbox = dynamic(() => import('@/app/components/Map'))
 export const revalidate = 86399
 
 export async function generateMetadata({ params : { property: id }}) {
-  preload(id)
+
   const property = await getProperty(id)
 
   return {
@@ -47,7 +47,6 @@ export async function generateMetadata({ params : { property: id }}) {
 
 const Page = async ({ params : { property: id }}) => {
 
-  preload(id)
   const property = await getProperty(id)
 
   const propertyData = usePropertyJSON({
@@ -83,6 +82,21 @@ const Page = async ({ params : { property: id }}) => {
     }
   ])
 
+  const cdnImages = await Promise.all(property.images.map(async(image, i) => {
+    if(i === 0) {
+      return image
+    }
+    else {
+      const thumbnail = await getImage(image.thumbnail)
+      return {
+        image: await getImage(image.image),
+        thumbnail: thumbnail,
+        placeholder: await getPlaceholder(thumbnail),
+        alt: image.alt
+      }
+    }
+  }))
+
 
   return (
     <>
@@ -92,7 +106,7 @@ const Page = async ({ params : { property: id }}) => {
       <div className="flex flex-col mx-auto p-4 md:p-8 xl:px-0 xl:py-16 max-w-screen-2xl space-y-8 xl:space-y-16">
         <div className="flex flex-col lg:flex-row space-y-8 lg:space-y-0 lg:space-x-8 2xl:space-x-16">
           <div className="lg:w-1/2" title="Property Images">
-            <ImageGallery images={property.images} />
+            <ImageGallery images={cdnImages} />
           </div>
           <div className="flex flex-col lg:w-1/2 space-y-3">
             <div className="flex flex-col pb-2 border-b space-y-2">

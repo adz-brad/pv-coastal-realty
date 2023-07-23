@@ -44,7 +44,7 @@ const ImageGallery = ({ images }) => {
                             }}
                         >
                             <Image
-                                src={image.image} 
+                                src={image.thumbnail} 
                                 fill={true}
                                 className="rounded-sm object-cover hover:scale-105"
                                 alt={image.alt}

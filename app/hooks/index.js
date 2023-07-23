@@ -1,15 +1,14 @@
 import { regions } from "@/data"
-import { cache } from 'react'
  
 const basePath = process.env.NEXT_SITE_BASEPATH
 
-export const getTitleFromSlug = cache((string) => {
+export const getTitleFromSlug = (string) => {
     const arr = string.split('-')
     for (var i = 0; i < arr.length; i++) {
       arr[i] = arr[i].charAt(0).toUpperCase() + arr[i].slice(1);
     }
     return arr.join(' ')
-  })
+  }
 
   export const useSearchPayload = (page, region, zones) => {
     return {
@@ -28,21 +27,21 @@ export const getTitleFromSlug = cache((string) => {
     }
   }
 
-  export const useRegionData = cache((region) => {
+  export const useRegionData = (region) => {
     return regions.filter(e => e.title.toLowerCase() === region.toLowerCase())[0]
-  })
+  }
 
-  export const useRegionParams = cache((region) => {
+  export const useRegionParams = (region) => {
     return {
       regionId: region.id,
       zoneIds: region.zones.map(zone => { return zone.id })
     }
-  })
+  }
 
-  export const useZoneData = cache((region, zone) => {
+  export const useZoneData = (region, zone) => {
     const data = useRegionData(region)
     return {regionId: data.id, zone: data.zones.filter(e => e.title.toLowerCase() === zone.toLowerCase())[0]}
-  })
+  }
 
   export const useBreadcrumbJSON = (data) => {
     return `{
@@ -67,7 +66,7 @@ export const getTitleFromSlug = cache((string) => {
     }`
   }
 
-  export const usePropertyJSON = cache((data) => {
+  export const usePropertyJSON = (data) => {
    
     return `{
       "@context": "https://schema.org",
@@ -119,9 +118,9 @@ export const getTitleFromSlug = cache((string) => {
         }
       ]
     }`
-  })
+  }
 
-  export const useAgentJSON = cache(() => {
+  export const useAgentJSON = () => {
     return `{
       "@context": "https://schema.org",
       "@graph": [
@@ -145,4 +144,4 @@ export const getTitleFromSlug = cache((string) => {
           }
       ]
   }`
-  })
+  }

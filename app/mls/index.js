@@ -1,12 +1,8 @@
 'use server'
 
-import 'server-only'
-
 import addOAuthInterceptor from 'axios-oauth-1.0a'
 import axios from "axios"
 import https from "https"
-
-import { cache } from 'react'
 
 import { getPlaiceholder } from "plaiceholder";
 
@@ -26,27 +22,25 @@ const options = {
 
 addOAuthInterceptor(client, options);
 
-const getImage = cache(async (url) => {
+export const getImage = async (url) => {
     const config = {
         method: 'GET',
         maxBodyLength: Infinity,
-        headers: {'Cache-Control': 'max-age=86399'},
         url: url,
         httpsAgent: agent
     }
     return await client(config)
     .then((res) => res.request.res.responseUrl)
     .catch((err) => console.log(err))
-})
+}
 
-const getPlaceholder = cache(async (url) => {
-    const image = await getImage(url)
-    const buffer = await fetch(image).then(async (res) =>
+export const getPlaceholder = async (url) => {
+    const buffer = await fetch(url).then(async (res) =>
         Buffer.from(await res.arrayBuffer())
     );
     const { base64 } = await getPlaiceholder(buffer)
     return base64
-})
+}
 
 const transformProperty = async (e) => {
 
@@ -80,14 +74,28 @@ const transformProperty = async (e) => {
         const imageUrl = `https://members.mlsvallarta.com/mls/property/image/mlsvallarta/${e.id}/hero_${image.name}.jpg`
         const seoImageUrl = `https://members.mlsvallarta.com/mls/property/image/mlsvallarta/${e.id}/single_${image.name}.jpg`
         const placeholderUrl = `https://members.mlsvallarta.com/mls/property/image/mlsvallarta/${e.id}/thumb_${image.name}.jpg`
-        const cdnImageUrl = await getImage(imageUrl)
-        const placeholder = await getPlaceholder(placeholderUrl)
-        return {
-            image: cdnImageUrl,
-            seoImage: seoImageUrl,
-            placeholder: placeholder,
-            alt: alt,
-            index: i,
+        if(i === 0) {
+            const cdnImageUrl = await getImage(imageUrl)
+            const thumbnailImageUrl = await getImage(placeholderUrl)
+            const placeholder = await getPlaceholder(thumbnailImageUrl)
+            return {
+                image: cdnImageUrl,
+                thumbnail: thumbnailImageUrl,
+                seoImage: seoImageUrl,
+                placeholder: placeholder,
+                alt: alt,
+                index: i,
+            }
+        }
+        else {
+            return {
+                image: imageUrl,
+                thumbnail: placeholderUrl,
+                seoImage: seoImageUrl,
+                placeholder: placeholderUrl,
+                alt: alt,
+                index: i,
+            }
         }
     }))
 
@@ -132,13 +140,13 @@ const transformProperty = async (e) => {
     return newProperty
 }
 
-export const getProperty = cache(async (id) => {
+export const getProperty = async (id) => {
 
     const config = {
         method: 'POST',
         maxBodyLength: Infinity,
         url: `https://members.mlsvallarta.com/mls/mlsvallarta/api/property/${id}`,
-        headers: {'Content-Type': 'application/json', 'Cache-Control': 'max-age=86399'},
+        headers: {'Content-Type': 'application/json'},
         data : JSON.stringify({propertyId: `${id}`}),
         httpsAgent: agent,
     }
@@ -153,20 +161,15 @@ export const getProperty = cache(async (id) => {
     else { 
         return null
     }
-})
-
-export const preload = (id) => {
-    void getProperty(id)
 }
 
-
-export const getFeatured = cache(async (limit) => {
+export const getFeatured = async (limit) => {
 
     const config = {
         method: 'POST',
         maxBodyLength: Infinity,
         url: 'https://members.mlsvallarta.com/mls/mlsvallarta/api/property/PVCOR/status',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json'},
         data : JSON.stringify({"cmaView":false,"regView":false,"aboutToExpireView":false,"page":1,"status":"CURRENT","pageSize":limit}),
         httpsAgent: agent
     }
@@ -185,15 +188,15 @@ export const getFeatured = cache(async (limit) => {
         return []
     }
  
-})
+}
 
-export const searchProperties = cache(async (data) => {
+export const searchProperties = async (data) => {
 
     const config = {
         method: 'POST',
         maxBodyLength: Infinity,
         url: 'https://members.mlsvallarta.com/mls/mlsvallarta/api/property/search',
-        headers: { 'Content-Type': 'application/json', 'Cache-Control': 'max-age=86399' },
+        headers: { 'Content-Type': 'application/json'},
         data : JSON.stringify(data),
         httpsAgent: agent
     }
@@ -201,11 +204,11 @@ export const searchProperties = cache(async (data) => {
     .then((res) => res.data?.properties)
     .catch((err) => console.log(err))
     if(properties){
-        return Promise.all(properties.map(async property => {
+        return await Promise.all(properties.map(async property => {
             return await transformProperty(property)
         }))
     }
     else {
         return null
     }
-})
+}
