@@ -7,7 +7,7 @@ const nextConfig = {
     images: {
         formats: ['image/avif', 'image/webp'],
         unoptimized: false,
-        domains: ['members.mlsvallarta.com'],
+        domains: ['members.mlsvallarta.com', 'cdn.mlsvallarta.com'],
     },
     experimental: {
         serverActions: true

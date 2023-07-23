@@ -20,7 +20,7 @@ const PropertyCard = ({ property, i }) => {
     },
     price: property?.price?.current,
     description: property?.description?.en,
-    image: property?.images[0]?.single,
+    image: property?.images[0]?.seoImage,
     type: property?.type?.en
   })
 
@@ -31,7 +31,7 @@ const PropertyCard = ({ property, i }) => {
       <div className="relative h-2/3">
         {property.images.length > 0 ?
         <Image 
-          src={property.images[0].thumbnail} 
+          src={property.images[0].image} 
           fill={true}
           className="rounded-t-md object-cover"
           alt={property.images[0].alt}

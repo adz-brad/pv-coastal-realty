@@ -34,6 +34,8 @@ export const metadata = {
   },
 }
 
+export const revalidate = 86399
+
 const Page = () => {
 
   const breadcrumbData = useBreadcrumbJSON([

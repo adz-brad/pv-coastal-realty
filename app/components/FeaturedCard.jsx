@@ -21,7 +21,7 @@ const FeaturedCard = ({ property }) => {
     },
     price: property?.price?.current,
     description: property?.description?.en,
-    image: property?.images[0].single,
+    image: property?.images[0].seoImage,
     type: property?.type?.en
   })
 
@@ -66,7 +66,7 @@ const FeaturedCard = ({ property }) => {
           priority
           fetchPriority="high"
           loading="eager"
-          src={property?.images[0].single} 
+          src={property?.images[0].image} 
           fill={true}
           className="rounded-r-md object-cover"
           alt={property?.images[0].alt}

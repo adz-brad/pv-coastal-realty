@@ -26,13 +26,27 @@ const options = {
 
 addOAuthInterceptor(client, options);
 
-const getPlaceholder = async (url) => {
-    const buffer = await fetch(url).then(async (res) =>
-    Buffer.from(await res.arrayBuffer())
-  );
+const getImage = cache(async (url) => {
+    const config = {
+        method: 'GET',
+        maxBodyLength: Infinity,
+        headers: {'Cache-Control': 'max-age=86399'},
+        url: url,
+        httpsAgent: agent
+    }
+    return await client(config)
+    .then((res) => res.request.res.responseUrl)
+    .catch((err) => console.log(err))
+})
+
+const getPlaceholder = cache(async (url) => {
+    const image = await getImage(url)
+    const buffer = await fetch(image).then(async (res) =>
+        Buffer.from(await res.arrayBuffer())
+    );
     const { base64 } = await getPlaiceholder(buffer)
     return base64
-}
+})
 
 const transformProperty = async (e) => {
 
@@ -63,19 +77,17 @@ const transformProperty = async (e) => {
 
     const alt = `${e.propertyName} ${e.propertyTypeValue.propertyTypeValue.localizedName.strings.en_us} for sale in ${e.propertyAddress.zone.name}. Image property of MLS Vallarta ©`
     const images = await Promise.all(e.propertySlide.images.map(async(image, i) => {
-        const hero = `https://members.mlsvallarta.com/mls/property/image/mlsvallarta/${e.id}/hero_${image.name}.jpg`
-        const thumbList = `https://members.mlsvallarta.com/mls/property/image/mlsvallarta/${e.id}/thumb_${image.name}.jpg`
-        const thumbnail = `https://members.mlsvallarta.com/mls/property/image/mlsvallarta/${e.id}/thumbList_${image.name}.jpg`
-        const single = `https://members.mlsvallarta.com/mls/property/image/mlsvallarta/${e.id}/single_${image.name}.jpg`
-        const placeholder = process.env.NODE_ENV === 'production' ? await getPlaceholder(thumbnail) : thumbnail
+        const imageUrl = `https://members.mlsvallarta.com/mls/property/image/mlsvallarta/${e.id}/hero_${image.name}.jpg`
+        const seoImageUrl = `https://members.mlsvallarta.com/mls/property/image/mlsvallarta/${e.id}/single_${image.name}.jpg`
+        const placeholderUrl = `https://members.mlsvallarta.com/mls/property/image/mlsvallarta/${e.id}/thumb_${image.name}.jpg`
+        const cdnImageUrl = await getImage(imageUrl)
+        const placeholder = await getPlaceholder(placeholderUrl)
         return {
-            hero: hero,
-            thumbnail: thumbnail,
-            single: single,
-            thumbList: thumbList,
+            image: cdnImageUrl,
+            seoImage: seoImageUrl,
+            placeholder: placeholder,
             alt: alt,
             index: i,
-            placeholder: placeholder
         }
     }))
 
@@ -126,9 +138,9 @@ export const getProperty = cache(async (id) => {
         method: 'POST',
         maxBodyLength: Infinity,
         url: `https://members.mlsvallarta.com/mls/mlsvallarta/api/property/${id}`,
-        headers: {'Content-Type': 'application/json', 'Cache-Control': 'max-age=86400'},
+        headers: {'Content-Type': 'application/json', 'Cache-Control': 'max-age=86399'},
         data : JSON.stringify({propertyId: `${id}`}),
-        httpsAgent: agent
+        httpsAgent: agent,
     }
 
     const property = await client(config)
@@ -148,7 +160,7 @@ export const preload = (id) => {
 }
 
 
-export const getFeatured = async (limit) => {
+export const getFeatured = cache(async (limit) => {
 
     const config = {
         method: 'POST',
@@ -173,27 +185,27 @@ export const getFeatured = async (limit) => {
         return []
     }
  
-}
+})
 
-export const searchProperties = async (data) => {
+export const searchProperties = cache(async (data) => {
 
     const config = {
         method: 'POST',
         maxBodyLength: Infinity,
         url: 'https://members.mlsvallarta.com/mls/mlsvallarta/api/property/search',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', 'Cache-Control': 'max-age=86399' },
         data : JSON.stringify(data),
         httpsAgent: agent
     }
     const properties = await client(config)
     .then((res) => res.data?.properties)
     .catch((err) => console.log(err))
-    let transformed = []
     if(properties){
-        properties.map(property => {
-            const obj = transformProperty(property)
-            transformed.push(obj)
-        })
+        return Promise.all(properties.map(async property => {
+            return await transformProperty(property)
+        }))
     }
-    return transformed
-}
+    else {
+        return null
+    }
+})

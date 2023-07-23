@@ -12,7 +12,7 @@ const ImageGallery = dynamic(() => import('@/app/components/ImageGallery'))
 const Contact = dynamic(() => import('@/app/components/Contact'))
 const Mapbox = dynamic(() => import('@/app/components/Map'))
 
-export const revalidate = 86400
+export const revalidate = 86399
 
 export async function generateMetadata({ params : { property: id }}) {
   preload(id)
@@ -25,21 +25,21 @@ export async function generateMetadata({ params : { property: id }}) {
       canonical: `${process.env.NEXT_SITE_BASEPATH}/properties/${id}`,
     },
     other: {
-      thumbnail: property.images[0].single
+      thumbnail: property.images[0].seoImage
     },
     twitter: {
       card: 'summary',
       title: `${property.title} | PV Coastal Realty`,
       description: `${property.title} (MLV# ${property.mlvId}), located in ${property.city}, ${property.state}, Mexico, is currently listed at $${property.price} USD. Contact PV Coastal Realty today to learn more about this amazing opportunity!`,
       creator: '@pvcoastalrealty',
-      images: [{ url: property.images[0].single }],
+      images: [{ url: property.images[0].seoImage }],
       url: `${process.env.NEXT_SITE_BASEPATH}/properties/${id}`
     },
     openGraph: {
       title: `${property.title} | PV Coastal Realty`,
       description: `${property.title} (MLV# ${property.mlvId}), located in ${property.city}, ${property.state}, Mexico, is currently listed at $${property.price} USD. Contact PV Coastal Realty today to learn more about this amazing opportunity!`,
       type: 'website',
-      images: [{ url: property.images[0].single }],
+      images: [{ url: property.images[0].seoImage }],
       url: `${process.env.NEXT_SITE_BASEPATH}/properties/${id}`
     },
   }
@@ -64,7 +64,7 @@ const Page = async ({ params : { property: id }}) => {
     },
     price: property?.price?.current,
     description: property?.description?.en,
-    image: property?.images[0].single,
+    image: property?.images[0].seoImage,
     type: property?.type?.en
   })
 
@@ -88,7 +88,7 @@ const Page = async ({ params : { property: id }}) => {
     <>
       <JsonLd data={propertyData} />
       <JsonLd data={breadcrumbData} />
-      <Banner title={property?.title} image={property.images[0]?.hero}  placeholder={property.images[0]?.placeholder}/>
+      <Banner title={property?.title} image={property.images[0]?.image}  placeholder={property.images[0]?.placeholder}/>
       <div className="flex flex-col mx-auto p-4 md:p-8 xl:px-0 xl:py-16 max-w-screen-2xl space-y-8 xl:space-y-16">
         <div className="flex flex-col lg:flex-row space-y-8 lg:space-y-0 lg:space-x-8 2xl:space-x-16">
           <div className="lg:w-1/2" title="Property Images">

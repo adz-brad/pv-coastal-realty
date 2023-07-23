@@ -11,7 +11,6 @@ const ShowProperties = ({ region, zones }) => {
     const [ properties, setProperties ] = useState([])
     const [ loading, setLoading ] = useState(false)
     const [ loadmore, setLoadmore ] = useState(false)
-
     const scrollRef = useRef()
 
     let payload = useSearchPayload(page, region, zones)
@@ -58,10 +57,11 @@ const ShowProperties = ({ region, zones }) => {
   return (
     <div className="relative flex flex-col space-y-8 xl:space-y-16">
         <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {properties.length > 0 &&
-            properties.map((property, i) => {
-              return <PropertyCard property={property} key={i} i={i} />
-            })
+          {properties &&
+            properties.length > 0 &&
+              properties.map((property, i) => {
+                return <PropertyCard property={property} key={i} i={i} />
+              })
           }
         </ul>
         {isMore &&

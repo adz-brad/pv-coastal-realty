@@ -44,7 +44,7 @@ const ImageGallery = ({ images }) => {
                             }}
                         >
                             <Image
-                                src={image.thumbnail} 
+                                src={image.image} 
                                 fill={true}
                                 className="rounded-sm object-cover hover:scale-105"
                                 alt={image.alt}
@@ -78,7 +78,7 @@ const ImageGallery = ({ images }) => {
                         return (
                             <Image
                                 key={i}
-                                src={lightbox ? image.hero : i === 0 ? image.hero : image.single} 
+                                src={image.image} 
                                 fill={true}
                                 className={`${i === current ? 'z-20' : 'z-10'} rounded-sm object-cover`}
                                 alt={image.alt}
