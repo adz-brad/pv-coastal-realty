@@ -211,7 +211,7 @@ export const regions = [
                 id: 28,
                 title: 'East',
                 description: 'The east side of Central Vallarta follows the river Cuale up the valley and consists primarily of the hillside behind Puerto Vallarta, known as La Pechuga and also few popular neighborhoods such as El Remance and Las Canoas. Nestled between the lush Sierra Madre Mountains and the azure waters of the Pacific Ocean, it offers a breathtaking blend of tropical landscapes and vibrant city life.',
-                imageUrl: '/east-vallarta.jpg'
+                imageUrl: '/east-vallarta.webp'
             },
             {
                 id: 29,
