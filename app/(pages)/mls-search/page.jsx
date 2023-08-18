@@ -60,7 +60,7 @@ const Page = () => {
   }, [ loadmore ])
 
   useEffect(() => {
-    if(results.length === 12){
+    if(results.length === 16){
       const observer = new IntersectionObserver((entries) => {
         const entry = entries[0];
         if(entry.isIntersecting && !loading){
@@ -71,7 +71,7 @@ const Page = () => {
     }
   }, [ results ])
 
-  const isMore = results.length % 12 == 0
+  const isMore = results.length % 16 == 0
 
   const breadcrumbData = useBreadcrumbJSON([
     {
@@ -99,7 +99,7 @@ const Page = () => {
         {isMore &&
           <div ref={scrollRef} className="absolute top-full -translate-y-[1264px] h-20 w-20"/>
         }
-        {loading && results.length > 12 && <ImSpinner9 className="animate-spin mx-auto text-4xl text-sky-600"/> }
+        {loading && results.length > 16 && <ImSpinner9 className="animate-spin mx-auto text-4xl text-sky-600"/> }
       </div>
       <Contact />
     </>
