@@ -8,8 +8,6 @@ import dynamic from "next/dynamic"
 
 const Contact = dynamic(() => import('@/app/components/Contact'))
 
-export const revalidate = 0
-
 export const metadata = {
   title: 'Listings | PV Coastal Realty',
   description: 'Browse PV Coastal Realty listings to view properties for sale from all around Banderas Bay, including Puerto Vallarta and Riviera Nayarit, to find you perfect dream home in paradise today!',

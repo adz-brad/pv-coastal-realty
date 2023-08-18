@@ -11,8 +11,6 @@ import dynamic from "next/dynamic"
 
 const Contact = dynamic(() => import('@/app/components/Contact'))
 
-export const revalidate = 86399
-
 export const metadata = {
   title: 'Regions | PV Coastal Realty',
   description: 'Browse property listings by region, from Puerto Vallarta and Bucerias to Sayulita, San Pancho and beyond. Find you perfect dream home in paradise today!',
