@@ -30,7 +30,8 @@ const PropertyCard = ({ property, i }) => {
       <JsonLd data={jsonData} />
       <div className="relative h-2/3">
         {property.images.length > 0 ?
-        <Image 
+        <Image  
+          loading="eager"
           src={property.images[0].seoImage} 
           fill={true}
           className="rounded-t-md object-cover"
