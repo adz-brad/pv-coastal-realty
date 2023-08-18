@@ -8,7 +8,7 @@ import dynamic from "next/dynamic"
 
 const Contact = dynamic(() => import('@/app/components/Contact'))
 
-export const revalidate = 86399
+export const revalidate = 0
 
 export const metadata = {
   title: 'Listings | PV Coastal Realty',

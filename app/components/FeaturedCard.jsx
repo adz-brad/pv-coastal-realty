@@ -67,8 +67,6 @@ const FeaturedCard = ({ property }) => {
           fill={true}
           className="rounded-r-md object-cover"
           alt={property?.images[0].alt}
-          placeholder="blur"
-          blurDataURL={property?.images[0].placeholder}
         />
       </div>
     </div> 

@@ -73,7 +73,7 @@ const Page = ({ params: { region }}) => {
   return (
     <>
       <JsonLd data={breadcrumbData} />
-      <Banner title={`${str} Zones`} image={data.imageUrl} placeholder={data.imageUrl}/>
+      <Banner title={`${str} Zones`} image={data.imageUrl} />
       <div className="flex flex-col p-4 lg:p-8">
         <h2 className="text-3xl md:text-4xl font-bold pb-2 border-b">
           Browse {str} Properties By Zone
@@ -88,8 +88,6 @@ const Page = ({ params: { region }}) => {
                         fill={true}
                         className="rounded-t-md object-cover"
                         alt={`PV Coastal Realty: ${zone.title} Zone`}
-                        placeholder="blur"
-                        blurDataURL={zone.imageUrl ? zone.imageUrl : '/pv-coastal-header.webp'}
                     />
                     </div>
 

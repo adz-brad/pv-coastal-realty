@@ -4,7 +4,6 @@ import Search from "@/app/components/Search"
 import SearchResults from "@/app/components/SearchResults"
 import { getPayload } from "@/data/search"
 import { useState, useEffect, useRef } from 'react'
-import { searchProperties } from "@/app/mls"
 import { ImSpinner9 } from 'react-icons/im'
 import JsonLd from "@/app/components/JsonLd"
 import { useBreadcrumbJSON } from "@/app/hooks"
@@ -29,7 +28,11 @@ const Page = () => {
     const formData = new FormData(e.target)
     setData(formData)
     const payload = getPayload(1, formData)
-    const res = await searchProperties(payload)
+    const res = await fetch(`${process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : 'https://www.pvcoastalrealty.com'}/api/properties`, {
+      next: { revalidate: 86400 },
+      method: 'POST',
+      body: JSON.stringify(payload)
+    }).then((res) => res.json())
     setResults(res)
     const scrollDiv = document.getElementById("search-results").offsetTop
     window.scrollTo({ top: scrollDiv, behavior: 'smooth'})
@@ -40,7 +43,10 @@ const Page = () => {
   const getMore = async () => {
     setLoading(true)
     const payload = getPayload(page, data)
-    const res = await searchProperties(payload)
+    const res = await fetch(`http://localhost:3000/api/properties`, {
+      method: 'POST',
+      body: JSON.stringify(payload)
+    }).then((res) => res.json())
     setResults([...results, ...res])
     setPage(page+1)
     setLoading(false)

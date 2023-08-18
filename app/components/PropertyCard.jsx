@@ -36,8 +36,6 @@ const PropertyCard = ({ property, i }) => {
           className="rounded-t-md object-cover"
           alt={property.images[0].alt}
           priority
-          placeholder="blur"
-          blurDataURL={property.images[0].placeholder}
         />
         :
         <Image 

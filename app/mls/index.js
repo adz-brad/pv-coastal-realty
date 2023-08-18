@@ -1,18 +1,14 @@
-'use server'
-
 import addOAuthInterceptor from 'axios-oauth-1.0a'
 import axios from "axios"
 import https from "https"
 
-import { getPlaiceholder } from "plaiceholder";
-
-const agent = new https.Agent({  
+export const agent = new https.Agent({  
     rejectUnauthorized: false
   });
 
-const client = axios.create();
+export const client = axios.create();
 
-const options = {
+export const options = {
     algorithm: "HMAC-SHA1",
     key: process.env.NEXT_MLS_CONSUMER_KEY,
     secret: process.env.NEXT_MLS_CONSUMER_SECRET,
@@ -22,27 +18,7 @@ const options = {
 
 addOAuthInterceptor(client, options);
 
-export const getImage = async (url) => {
-    const config = {
-        method: 'GET',
-        maxBodyLength: Infinity,
-        url: url,
-        httpsAgent: agent
-    }
-    return await client(config)
-    .then((res) => res.request.res.responseUrl)
-    .catch((err) => console.log(err))
-}
-
-export const getPlaceholder = async (url) => {
-    const buffer = await fetch(url).then(async (res) =>
-        Buffer.from(await res.arrayBuffer())
-    );
-    const { base64 } = await getPlaiceholder(buffer)
-    return base64
-}
-
-const transformProperty = async (e) => {
+export const transformProperty = async (e) => {
 
     // Set Features
 
@@ -73,28 +49,13 @@ const transformProperty = async (e) => {
     const images = await Promise.all(e.propertySlide.images.map(async(image, i) => {
         const imageUrl = `https://members.mlsvallarta.com/mls/property/image/mlsvallarta/${e.id}/hero_${image.name}.jpg`
         const seoImageUrl = `https://members.mlsvallarta.com/mls/property/image/mlsvallarta/${e.id}/single_${image.name}.jpg`
-        const placeholderUrl = `https://members.mlsvallarta.com/mls/property/image/mlsvallarta/${e.id}/thumbList_${image.name}.jpg`
-        if(i === 0) {
-            const thumbnailImageUrl = await getImage(placeholderUrl)
-            const placeholder = await getPlaceholder(thumbnailImageUrl)
-            return {
-                image: imageUrl,
-                thumbnail: thumbnailImageUrl,
-                seoImage: seoImageUrl,
-                placeholder: placeholder,
-                alt: alt,
-                index: i,
-            }
-        }
-        else {
-            return {
-                image: imageUrl,
-                thumbnail: placeholderUrl,
-                seoImage: seoImageUrl,
-                placeholder: placeholderUrl,
-                alt: alt,
-                index: i,
-            }
+        const thumbnailUrl = `https://members.mlsvallarta.com/mls/property/image/mlsvallarta/${e.id}/thumbList_${image.name}.jpg`
+        return {
+            image: imageUrl,
+            thumbnail: thumbnailUrl,
+            seoImage: seoImageUrl,
+            alt: alt,
+            index: i,
         }
     }))
 

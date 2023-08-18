@@ -1,6 +1,5 @@
 'use client'
 import { useState, useEffect, useRef } from 'react'
-import { searchProperties } from "@/app/mls"
 import { useSearchPayload } from '../hooks'
 import PropertyCard from './PropertyCard'
 import { ImSpinner9 } from 'react-icons/im'
@@ -17,7 +16,11 @@ const ShowProperties = ({ region, zones }) => {
 
     const getProperties = async () => {
         setLoading(true)
-        const res = await searchProperties(payload)
+        const res = await fetch(`${process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : 'https://www.pvcoastalrealty.com'}/api/properties`, {
+          next: { revalidate: 86400 },
+          method: 'POST',
+          body: JSON.stringify(payload)
+        }).then((res) => res.json())
         if(page === 1){
             setProperties(res)
             setPage(2)

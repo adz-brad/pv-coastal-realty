@@ -29,12 +29,12 @@ const nextConfig = {
       },
     images: {
         formats: ['image/avif', 'image/webp'],
-        unoptimized: true,
-        domains: ['members.mlsvallarta.com', 'cdn.mlsvallarta.com'],
+        unoptimized: process.env.NODE_ENV === 'development',
+        domains: ['members.mlsvallarta.com'],
     },
     experimental: {
         serverActions: true
-    }
+    },
 }
 
 module.exports = nextConfig

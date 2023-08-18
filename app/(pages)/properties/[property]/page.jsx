@@ -1,5 +1,4 @@
 import Banner from "@/app/components/Banner"
-import { getImage, getPlaceholder, getProperty } from "@/app/mls"
 import { MdOutlineHomeWork, MdLocationPin } from 'react-icons/md'
 import FeaturesList from "@/app/components/FeaturesList"
 import Link from "next/link"
@@ -12,11 +11,14 @@ const ImageGallery = dynamic(() => import('@/app/components/ImageGallery'))
 const Contact = dynamic(() => import('@/app/components/Contact'))
 const Mapbox = dynamic(() => import('@/app/components/Map'))
 
-export const revalidate = 86399
+export const revalidate = 604800
 
 export async function generateMetadata({ params : { property: id }}) {
 
-  const property = await getProperty(id)
+  const property = await fetch(`${process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : 'https://www.pvcoastalrealty.com'}/api/property`, {
+    method: 'POST',
+    body: JSON.stringify(id)
+  }).then((res) => res.json())
 
   return {
     title: `${property.title} | PV Coastal Realty`,
@@ -25,29 +27,33 @@ export async function generateMetadata({ params : { property: id }}) {
       canonical: `${process.env.NEXT_SITE_BASEPATH}/properties/${id}`,
     },
     other: {
-      thumbnail: property.images[0].seoImage
+      thumbnail: property?.images[0]?.seoImage
     },
     twitter: {
       card: 'summary',
-      title: `${property.title} | PV Coastal Realty`,
-      description: `${property.title} (MLV# ${property.mlvId}), located in ${property.city}, ${property.state}, Mexico, is currently listed at $${property.price} USD. Contact PV Coastal Realty today to learn more about this amazing opportunity!`,
+      title: `${property?.title} | PV Coastal Realty`,
+      description: `${property?.title} (MLV# ${property.mlvId}), located in ${property.city}, ${property.state}, Mexico, is currently listed at $${property.price} USD. Contact PV Coastal Realty today to learn more about this amazing opportunity!`,
       creator: '@pvcoastalrealty',
-      images: [{ url: property.images[0].seoImage }],
+      images: [{ url: property?.images[0].seoImage }],
       url: `${process.env.NEXT_SITE_BASEPATH}/properties/${id}`
     },
     openGraph: {
       title: `${property.title} | PV Coastal Realty`,
       description: `${property.title} (MLV# ${property.mlvId}), located in ${property.city}, ${property.state}, Mexico, is currently listed at $${property.price} USD. Contact PV Coastal Realty today to learn more about this amazing opportunity!`,
       type: 'website',
-      images: [{ url: property.images[0].seoImage }],
+      images: [{ url: property?.images[0].seoImage }],
       url: `${process.env.NEXT_SITE_BASEPATH}/properties/${id}`
     },
   }
 }
 
+
 const Page = async ({ params : { property: id }}) => {
 
-  const property = await getProperty(id)
+  const property = await fetch(`${process.env.NEXT_SITE_BASEPATH}/api/property`, {
+    method: 'POST',
+    body: JSON.stringify(id)
+  }).then((res) => res.json())
 
   const propertyData = usePropertyJSON({
     title: property?.title,
@@ -82,30 +88,16 @@ const Page = async ({ params : { property: id }}) => {
     }
   ])
 
-  const cdnImages = await Promise.all(property.images.map(async(image, i) => {
-    if(i === 0) {
-      return image
-    }
-    else {
-      const thumbnail = await getImage(image.thumbnail)
-      return {
-        ...image,
-        placeholder: await getPlaceholder(thumbnail),
-
-      }
-    }
-  }))
-
 
   return (
     <>
       <JsonLd data={propertyData} />
       <JsonLd data={breadcrumbData} />
-      <Banner title={property?.title} image={property.images[0]?.image}  placeholder={property.images[0]?.placeholder}/>
+      <Banner title={property?.title} image={property.images[0]?.image} />
       <div className="flex flex-col mx-auto p-4 md:p-8 xl:px-0 xl:py-16 max-w-screen-2xl space-y-8 xl:space-y-16">
         <div className="flex flex-col lg:flex-row space-y-8 lg:space-y-0 lg:space-x-8 2xl:space-x-16">
           <div className="lg:w-1/2" title="Property Images">
-            <ImageGallery images={cdnImages} />
+            <ImageGallery images={property.images} />
           </div>
           <div className="flex flex-col lg:w-1/2 space-y-3">
             <div className="flex flex-col pb-2 border-b space-y-2">

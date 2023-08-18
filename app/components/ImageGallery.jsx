@@ -49,8 +49,6 @@ const ImageGallery = ({ images }) => {
                                 fill={true}
                                 className="rounded-sm object-cover hover:scale-105"
                                 alt={image.alt}
-                                placeholder="blur"
-                                blurDataURL={image.placeholder}
                             />
                         </li>
                     )
@@ -86,8 +84,6 @@ const ImageGallery = ({ images }) => {
                                 disabled={lightbox}
                                 onClick={() => setLightbox(true)}
                                 quality={100}
-                                placeholder="blur"
-                                blurDataURL={image.placeholder}
                             />
                         )
                     })}
