@@ -45,7 +45,10 @@ const ImageGallery = ({ images }) => {
                             }}
                         >
                             <Image
-                                src={image.thumbnail} 
+                                priority
+                                fetchPriority="high"
+                                loading="eager"
+                                src={i === 0 ? image.image : image.thumbnail} 
                                 fill={true}
                                 className="rounded-sm object-cover hover:scale-105"
                                 alt={image.alt}
@@ -76,8 +79,11 @@ const ImageGallery = ({ images }) => {
                     {images.map((image, i) => {
                         return (
                             <Image
+                            priority
+                            fetchPriority="high"
+                            loading="eager"
                                 key={i}
-                                src={lightbox ? image.image : image.seoImage} 
+                                src={i === 0 ? image.image : lightbox ? image.image : image.seoImage} 
                                 fill={true}
                                 className={`${i === current ? 'z-20' : 'z-10'} rounded-sm object-cover`}
                                 alt={image.alt}

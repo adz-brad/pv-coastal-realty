@@ -26,7 +26,7 @@ const FeaturedCard = ({ property }) => {
   })
 
   return (
-    <div id={property?.id} className="carousel-item w-full flex flex-col-reverse lg:flex-row lg:space-x-8 py-4 lg:py-8" >
+    <div id={property?.mlvId} className="carousel-item w-full flex flex-col-reverse lg:flex-row lg:space-x-8 py-4 lg:py-8" >
       <JsonLd data={jsonData} />
       <div className="flex flex-col grow lg:w-1/2 my-4 lg:my-0">
         <div className="flex flex-col space-y-2">
@@ -55,7 +55,7 @@ const FeaturedCard = ({ property }) => {
           </div>
         }
         <Link 
-          href={`/properties/${property?.id}`} 
+          href={`/properties/${property?.mlvId}`} 
           className="button"
         >
             View Property
@@ -65,6 +65,7 @@ const FeaturedCard = ({ property }) => {
         <Image
           loading="eager"
           priority
+          fetchPriority="high"
           src={property?.images[0].seoImage} 
           fill={true}
           className="rounded-r-md object-cover"

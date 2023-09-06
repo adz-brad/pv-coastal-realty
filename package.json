@@ -14,6 +14,7 @@
     "autoprefixer": "10.4.14",
     "axios": "^1.4.0",
     "axios-oauth-1.0a": "^0.3.6",
+    "firebase": "^10.3.1",
     "https": "^1.0.0",
     "immutability-helper": "^3.1.1",
     "mapbox-gl": "^2.15.0",

@@ -63,9 +63,10 @@ const PropertyCard = ({ property, i }) => {
               {property.address.city}, {property.address.state}
             </span>
           </div>
+
         </div>
         <Link 
-          href={`/properties/${property.id}`}
+          href={`/properties/${property.mlvId}`}
           className="button"
         >
           View Property

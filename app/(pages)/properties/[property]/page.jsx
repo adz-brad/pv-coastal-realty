@@ -11,7 +11,7 @@ const ImageGallery = dynamic(() => import('@/app/components/ImageGallery'))
 const Contact = dynamic(() => import('@/app/components/Contact'))
 const Mapbox = dynamic(() => import('@/app/components/Map'))
 
-export const revalidate = 604800
+export const revalidate = 86400
 
 export async function generateMetadata({ params : { property: id }}) {
 

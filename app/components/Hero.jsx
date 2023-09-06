@@ -6,6 +6,8 @@ const Hero = () => {
         
         <Image 
           priority
+                                fetchPriority="high"
+                                loading="eager"
           src="/vallarta-hero.webp"
           fill={true}
           className="object-cover z-10"
