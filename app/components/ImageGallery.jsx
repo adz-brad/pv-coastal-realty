@@ -45,10 +45,7 @@ const ImageGallery = ({ images }) => {
                             }}
                         >
                             <Image
-                                priority
-                                fetchPriority="high"
-                                loading="eager"
-                                src={i === 0 ? image.image : image.thumbnail} 
+                                src={image.thumbnail} 
                                 fill={true}
                                 className="rounded-sm object-cover hover:scale-105"
                                 alt={image.alt}
@@ -78,12 +75,14 @@ const ImageGallery = ({ images }) => {
                 <div className={lightbox ? 'relative h-4/5 w-full' : 'relative min-h-[350px] md:min-h-[425px] lg:min-h-[500px]'} role="button">
                     {images.map((image, i) => {
                         return (
+                            <>
+                            {i === 0 ?
                             <Image
                             priority
                             fetchPriority="high"
                             loading="eager"
                                 key={i}
-                                src={i === 0 ? image.image : lightbox ? image.image : image.seoImage} 
+                                src={lightbox ? image.image : image.seoImage} 
                                 fill={true}
                                 className={`${i === current ? 'z-20' : 'z-10'} rounded-sm object-cover`}
                                 alt={image.alt}
@@ -91,6 +90,20 @@ const ImageGallery = ({ images }) => {
                                 onClick={() => setLightbox(true)}
                                 quality={100}
                             />
+                            :
+                            <Image
+                                key={i}
+                                src={lightbox ? image.image : image.seoImage} 
+                                fill={true}
+                                className={`${i === current ? 'z-20' : 'z-10'} rounded-sm object-cover`}
+                                alt={image.alt}
+                                disabled={lightbox}
+                                onClick={() => setLightbox(true)}
+                                quality={100}
+                            />
+                        }
+                    </>
+
                         )
                     })}
                 <button
