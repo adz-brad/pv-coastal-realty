@@ -4,7 +4,7 @@ import { MdLocationPin } from 'react-icons/md'
 import { usePropertyJSON } from "@/app/hooks"
 import JsonLd from "@/app/components/JsonLd"
 
-const PropertyCard = ({ property, i }) => {
+const PropertyCard = ({ property, i, className }) => {
 
   const jsonData = usePropertyJSON({
     title: property?.title,
@@ -26,7 +26,7 @@ const PropertyCard = ({ property, i }) => {
 
   return (
 
-    <div key={i} className="shadow-md rounded-md h-[500px] flex flex-col">
+    <div key={i} className={`shadow-md rounded-md h-[500px] flex flex-col ${className}`}>
       <JsonLd data={jsonData} />
       <div className="relative h-2/3">
         {property.images.length > 0 ?

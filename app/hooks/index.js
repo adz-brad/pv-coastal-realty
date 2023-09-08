@@ -145,3 +145,48 @@ export const getTitleFromSlug = (string) => {
       ]
   }`
   }
+
+  export const useBlogJson = (data) => {
+    return `{ "@context": "https://schema.org", 
+    "@type": "BlogPosting",
+    "headline": "${data.title}",
+    "image": {
+      "@type": "ImageObject",
+      "@id": "https://www.pvcoastalrealty.com/_next/image?url=%2F${data.image}&w=640&q=100",
+      "url": "https://www.pvcoastalrealty.com/_next/image?url=%2F${data.image}&w=640&q=100",
+    },
+    "genre": "${data.category}", 
+    "keywords": [${data.keywords?.map(keyword => `"${keyword}"`)}],
+    "publisher": {
+      "@type": "Organization",
+      "@id": "https://www.pvcoastalrealty.com",
+      "name": "PV Coastal Realty",
+      "logo": {
+          "@type": "ImageObject",
+          "@id": "https://www.pvcoastalrealty.com/_next/image?url=%2Fpv-coastal-realty-logo.png&w=256&q=75",
+          "url": "https://www.pvcoastalrealty.com/_next/image?url=%2Fpv-coastal-realty-logo.png&w=256&q=75",
+          "width": "145",
+          "height": "107"
+      }
+  },
+    "url": "https://www.pvcoastalrealty.com/blog/${data.slug}",
+    "isPartOf": {
+      "@type" : "Blog",
+       "@id": "https://www.pvcoastalrealty.com/blog",
+       "name": "PV Coastal Real Estate Blog",
+       "publisher": {
+           "@type": "Organization",
+           "@id": "https://www.pvcoastalrealty.com",
+           "name": "PV Coastal Realty"
+       }
+   },
+    "datePublished": "${data.published}",
+    "dateCreated": "${data.published}",
+    "description": "${data.caption}",
+      "author": {
+       "@type": "Organization", 
+       "@id": "https://www.pvcoastalrealty.com",
+       "name": "PV Coastal Realty"
+     }
+    }`
+  }

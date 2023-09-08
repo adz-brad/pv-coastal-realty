@@ -2,7 +2,7 @@ import Image from "next/image"
 
 const Hero = () => {
   return (
-    <div className="relative h-screen">
+    <div className="relative h-screen overflow-hidden">
         
         <Image 
           priority

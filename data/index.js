@@ -358,6 +358,10 @@ export const navMenu = [
         path: '/mls-search'
     },
     {
+        title: 'Blog',
+        path: '/blog'
+    },
+    {
         title: 'About',
         path: '/about'
     },
@@ -365,5 +369,20 @@ export const navMenu = [
         title: 'Contact',
         path: '/contact'
     },
+]
+
+export const months = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December'
 ]
 

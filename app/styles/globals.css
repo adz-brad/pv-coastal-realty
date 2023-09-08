@@ -165,4 +165,17 @@
    .mapboxgl-control-container{
     @apply hidden;
    }
+
+   .blog-body {
+    @apply text-lg;
+    & p { @apply mt-2 mb-1; }
+    & h2 { @apply font-bold text-3xl mt-6 mb-3; } 
+    & h3 { @apply font-semibold text-2xl mt-4 mb-1; }
+    & ol, ul { @apply my-4 flex flex-col space-y-2; }
+    & ol > li, ul > li > strong { @apply text-lg; }
+    & ol > li, ul > li { @apply flex flex-col space-y-1; }
+    & ol > li > p, ul > li > p { @apply text-base; }
+    & li { @apply my-1; }
+    & a { @apply text-blue-600 hover:brightness-125; }
+   }
     
