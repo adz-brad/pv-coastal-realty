@@ -3,7 +3,7 @@
 import Link from "next/link"
 import Image from "next/image"
 import { navMenu } from "@/data"
-import { IoLogoInstagram, IoLogoFacebook, IoMenuSharp, IoCloseSharp, IoChatboxEllipsesOutline } from 'react-icons/io5'
+import { IoLogoInstagram, IoLogoFacebook, IoMenuSharp, IoCloseSharp, IoChatboxEllipsesOutline, IoLogoLinkedin, IoLogoPinterest } from 'react-icons/io5'
 import { useState } from "react"
 
 const Navbar = () => {
@@ -70,6 +70,27 @@ const Navbar = () => {
                  className="hover:scale-105 hover:text-sky-400 drop-shadow-lg"
                 />
             </a>
+            <a 
+                title="Pinterest"
+                href="https://www.pinterest.ca/pvcoastalrealty/" 
+                target="_blank" 
+                referrerPolicy="no-referrer"
+            >
+                <IoLogoPinterest
+                 className="hover:scale-105 hover:text-sky-400 drop-shadow-lg"
+                />
+            </a>
+            <a 
+                title="LinkedIn"
+                href="https://www.linkedin.com/company/pv-coastal-realty" 
+                target="_blank" 
+                referrerPolicy="no-referrer"
+            >
+                <IoLogoLinkedin
+                 className="hover:scale-105 hover:text-sky-400 drop-shadow-lg"
+                />
+            </a>
+            
             <Link
                 title="Contact"
                 href="/contact"

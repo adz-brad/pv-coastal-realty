@@ -1,6 +1,6 @@
 import Link from "next/link"
 import Image from "next/image"
-import { IoLogoInstagram, IoLogoFacebook, IoChatboxEllipsesOutline } from 'react-icons/io5'
+import { IoLogoInstagram, IoLogoFacebook, IoChatboxEllipsesOutline, IoLogoLinkedin, IoLogoPinterest } from 'react-icons/io5'
 import { navMenu } from "@/data"
 
 const Footer = () => {
@@ -42,6 +42,27 @@ const Footer = () => {
                  className="hover:scale-105 hover:text-sky-400 drop-shadow-lg"
                 />
             </a>
+            <a 
+                title="Pinterest"
+                href="https://www.pinterest.ca/pvcoastalrealty" 
+                target="_blank" 
+                referrerPolicy="no-referrer"
+            >
+                <IoLogoPinterest
+                 className="hover:scale-105 hover:text-sky-400 drop-shadow-lg"
+                />
+            </a>
+            <a 
+                title="LinkedIn"
+                href="https://www.linkedin.com/company/pv-coastal-realty" 
+                target="_blank" 
+                referrerPolicy="no-referrer"
+            >
+                <IoLogoLinkedin
+                 className="hover:scale-105 hover:text-sky-400 drop-shadow-lg"
+                />
+            </a>
+
             <Link
                 title="Contact"
                 href="/contact"
