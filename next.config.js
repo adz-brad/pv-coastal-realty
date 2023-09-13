@@ -6,7 +6,7 @@ const nextConfig = {
       },
     images: {
         formats: ['image/avif', 'image/webp'],
-        unoptimized: process.env.NODE_ENV === 'production',
+        unoptimized: process.env.NODE_ENV === 'development',
         domains: ['members.mlsvallarta.com', 'images.unsplash.com','plus.unsplash.com'],
     },
     experimental: {
