@@ -49,7 +49,7 @@ export const getTitleFromSlug = (string) => {
       "@graph": [
           {
             "@type": "BreadcrumbList",
-            "itemListElement": ${data.map((item, i) => {
+            "itemListElement": [${data.map((item, i) => {
               return (
                 `{
                   "@type": "ListItem",
@@ -60,7 +60,7 @@ export const getTitleFromSlug = (string) => {
                   }
               }`
               )
-            })}
+            })}]
           }
       ]
     }`
@@ -87,24 +87,19 @@ export const getTitleFromSlug = (string) => {
           }
         },
         {
-          "@type": "${data.type}",
-          "address": {
-            "@type": "PostalAddress",
-            "streetAddress": "${data.address.street}",
-            "addressLocality": "${data.address.city}",
-            "addressRegion": "${data.address.state}",
-            "postalCode": "${data.address.postalCode}"
-          },
-          "geo": {
-            "@type": "GeoCoordinates",
-            "latitude": ${data.address.coordinates.lat},
-            "longitude": ${data.address.coordinates.lon}
-        },
-        "description": "${data.description?.replace(new RegExp('\r?\n','g'), '')}",
-        "photo": {
-            "@type": "ImageObject",
-            "url": "${data.image}"          
-        }
+          "@type": "RealEstateListing",
+          "@id": "RealEstateListing",
+          "url": "${data.url}",
+          "thumbnailUrl": "${data.image}",
+          "name": "${data.title}",
+          "image": "${data.image}",
+          "identifier": "${data.url}",
+          "description": "${data.description?.replace(new RegExp('\r?\n','g'), '')}",
+          "datePosted": "${data.createdOn}",
+          "datePublished": "${data.createdOn}",
+          "dateCreated": "${data.createdOn}",
+          "dateModified": "${data.updatedOn}",
+          "abstract": "${data.description?.replace(new RegExp('\r?\n','g'), '')}"
         },
         {
           "@type": "Product",
@@ -153,7 +148,7 @@ export const getTitleFromSlug = (string) => {
     "image": {
       "@type": "ImageObject",
       "@id": "https://www.pvcoastalrealty.com/_next/image?url=%2F${data.image}&w=640&q=100",
-      "url": "https://www.pvcoastalrealty.com/_next/image?url=%2F${data.image}&w=640&q=100",
+      "url": "https://www.pvcoastalrealty.com/_next/image?url=%2F${data.image}&w=640&q=100"
     },
     "genre": "${data.category}", 
     "keywords": [${data.keywords?.map(keyword => `"${keyword}"`)}],

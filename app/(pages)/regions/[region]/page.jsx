@@ -1,6 +1,5 @@
 import Banner from "@/app/components/Banner"
 import { getTitleFromSlug } from "@/app/hooks"
-import ShowProperties from "@/app/components/ShowProperties"
 import { useRegionData, useRegionParams } from "@/app/hooks"
 import Image from "next/image"
 import Link from "next/link"
@@ -9,6 +8,7 @@ import JsonLd from "@/app/components/JsonLd"
 import { useBreadcrumbJSON } from "@/app/hooks"
 
 import dynamic from "next/dynamic"
+import Search from "@/app/components/InstantSearch"
 
 const Contact = dynamic(() => import('@/app/components/Contact'))
 
@@ -113,7 +113,7 @@ const Page = ({ params: { region } }) => {
         <h2 className="text-3xl lg:text-4xl font-bold pb-2 border-b ">
           Browse All {title} Properties
         </h2>
-        <ShowProperties region={params.regionId} zones={params.zoneIds} />
+        <Search restrict={["regionId"]} filters={`regionId:${params.regionId}`} />
       </div>
       <Contact />
     </>

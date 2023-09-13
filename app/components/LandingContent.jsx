@@ -16,7 +16,7 @@ const LandingContent = () => {
             Contact PV Coastal Realty Today!
           </Link>
         </div>
-        <div className="relative hidden lg:block lg:w-1/2 h-auto min-h-[350px]">
+        <div className="relative hidden lg:block lg:w-1/2 h-auto min-h-[350px] lg:min-h-[400px]">
           <Image 
             src="/beach-family.webp"
             fill={true}

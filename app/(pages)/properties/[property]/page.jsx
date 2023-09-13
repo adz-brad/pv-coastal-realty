@@ -1,9 +1,10 @@
 import Banner from "@/app/components/Banner"
-import { MdOutlineHomeWork, MdLocationPin } from 'react-icons/md'
-import FeaturesList from "@/app/components/FeaturesList"
+import { MdOutlineHomeWork, MdLocationPin, MdOutlineBathtub, MdOutlineKingBed } from 'react-icons/md'
+import { TbRulerMeasure } from 'react-icons/tb'
 import Link from "next/link"
 import { usePropertyJSON, useBreadcrumbJSON } from "@/app/hooks"
 import JsonLd from "@/app/components/JsonLd"
+import { getProperty } from "@/app/firebase/functions";
 
 import dynamic from "next/dynamic"
 
@@ -11,15 +12,10 @@ const ImageGallery = dynamic(() => import('@/app/components/ImageGallery'))
 const Contact = dynamic(() => import('@/app/components/Contact'))
 const Mapbox = dynamic(() => import('@/app/components/Map'))
 
-export const revalidate = 86400
-
 export async function generateMetadata({ params : { property: id }}) {
 
-  const property = await fetch(`${process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : 'https://www.pvcoastalrealty.com'}/api/property`, {
-    method: 'POST',
-    body: JSON.stringify(id)
-  }).then((res) => res.json())
-
+  const property = await getProperty(id)
+  
   return {
     title: `${property.title} | PV Coastal Realty`,
     description: `${property.title} (MLV# ${property.mlvId}), located in ${property.city}, ${property.state}, Mexico, is currently listed at $${property.price} USD. Contact PV Coastal Realty today to learn more about this amazing opportunity!`,
@@ -50,10 +46,7 @@ export async function generateMetadata({ params : { property: id }}) {
 
 const Page = async ({ params : { property: id }}) => {
 
-  const property = await fetch(`${process.env.NEXT_SITE_BASEPATH}/api/property`, {
-    method: 'POST',
-    body: JSON.stringify(id)
-  }).then((res) => res.json())
+  const property = await getProperty(id)
 
   const propertyData = usePropertyJSON({
     title: property?.title,
@@ -70,7 +63,10 @@ const Page = async ({ params : { property: id }}) => {
     price: property?.price?.current,
     description: property?.description?.en,
     image: property?.images[0].seoImage,
-    type: property?.type?.en
+    type: property?.type?.en,
+    updatedOn: property?.updatedOn,
+    createdOn: property?.createdOn,
+    url: `https://www.pvcoastalrealty.com/properties/${property?.mlvId}`
   })
 
   const breadcrumbData = useBreadcrumbJSON([
@@ -122,18 +118,57 @@ const Page = async ({ params : { property: id }}) => {
                   {property.address.street}, {property.address.city}, {property.address.state}
                 </a>
               </div>
-              <div className="flex flex-col text-lg my-6">
-                {property?.type?.en &&
-                  <div className="flex flex-row items-center space-x-2" title="Property Type">
-                    <MdOutlineHomeWork className="text-2xl" />
-                    <span>
-                      {property.type.en}
-                    </span>
-                  </div>
-                }
-                {property?.features && 
-                  <FeaturesList features={property.features} />
-                }
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 my-8">
+                <div className="flex flex-col text-lg">
+                <h3 className="text-lg font-semibold mb-2">Details</h3>
+                  {property?.type?.en &&
+                    <div className="flex flex-row items-center space-x-2" title="Property Type">
+                      <MdOutlineHomeWork className="text-2xl" />
+                      <span>
+                        {property.type.en}
+                      </span>
+                    </div>
+                  }
+                  <ul title="Property Details">
+                  {property?.bedrooms > 0 &&
+                    <li className="flex flex-row items-center text-lg space-x-2" title="Bedrooms">
+                      <MdOutlineKingBed className="text-2xl"/>
+                      <span>
+                        {property?.bedrooms} Bedrooms
+                      </span>
+                    </li> }
+                    {property?.bathrooms > 0 &&
+                    <li className="flex flex-row items-center text-lg space-x-2" title="Bathrooms">
+                      <MdOutlineBathtub className="text-2xl" />
+                      <span>
+                        {property?.bathrooms} Bathrooms
+                      </span>
+                    </li> }
+                    {property?.constructionSize > 0 &&
+                    <li className="flex flex-row items-center text-lg space-x-2" title="Construction Size (M2)">
+                      <TbRulerMeasure className="text-2xl" />
+                      <span>
+                        {property?.constructionSize} Construction Size (M2)
+                      </span>
+                    </li> }
+                  </ul>
+                </div>
+                {property?.ammenities?.length > 0 &&
+                <div title="Property Features" className="flex flex-col p-4 lg:py-0">
+                  <h3 className="text-lg font-semibold -ml-5 mb-2">Features</h3>
+                  <ul className="grid grid-cols-2 list-disc">
+                    {property?.ammenities?.map((item, i) => {
+                      return (
+                        <li 
+                          key={i} 
+                          className=""
+                        >
+                          {item.en}
+                        </li>
+                      )
+                    })}
+                  </ul>
+                </div>}
               </div>
             </div>
             <p className="lg:text-lg grow pb-4" title="Property Description">

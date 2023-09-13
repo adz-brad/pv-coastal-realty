@@ -25,8 +25,8 @@ const Navbar = () => {
                 loading="eager"
                 src="/pv-coastal-realty-logo.png"
                 alt="PV Coastal Realty - Discover Your Paradise"
-                width={120}
-                height={120}
+                width={150}
+                height={150}
                 className="scale-75 md:scale-100"
                 placeholder="blur"
                 blurDataURL="/pv-coastal-realty-logo.png"

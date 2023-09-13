@@ -3,8 +3,7 @@ import Hero from "../components/Hero"
 import { useBreadcrumbJSON } from "../hooks"
 import dynamic from "next/dynamic"
 import Link from "next/link"
-
-import { posts } from "../blog"
+import { getFeatured } from "../firebase/functions"
 
 const LandingContent = dynamic(() => import('@/app/components/LandingContent'))
 const Contact = dynamic(() => import('@/app/components/Contact'))
@@ -13,9 +12,8 @@ const Regions = dynamic(() => import('@/app/components/Regions'))
 const FeaturedBlog = dynamic(() => import('@/app/components/FeaturedBlog'))
 const JsonLd = dynamic(() => import('@/app/components/JsonLd'))
 
-export const revalidate = 86399
-
 export default async function Home() {
+
 
   const breadcrumbData = useBreadcrumbJSON([
     {
@@ -24,14 +22,21 @@ export default async function Home() {
     }
   ])
 
-  const featured = posts.filter(e => e.featured)
+  const featuredList = [
+    "49782",
+    "49607",
+    "50080",
+    "50059"
+  ]
 
+  const featuredProperties = await getFeatured(featuredList)
+  
   return (
     <>
       <JsonLd data={breadcrumbData} />
       <Hero />
       <LandingContent />
-      <Featured />
+      <Featured properties={featuredProperties} />
       <Regions />
       <section className="flex flex-col space-y-8 p-4 md:p-8">
       <div className="flex flex-row space-x-4 pb-2 border-b">
@@ -45,7 +50,7 @@ export default async function Home() {
             </Link>
           </div>
         
-      <FeaturedBlog posts={featured} />
+      <FeaturedBlog />
       </section>
       <Contact />
     </>

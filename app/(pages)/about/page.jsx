@@ -3,6 +3,7 @@ import { agents, agency } from "@/data"
 import Image from "next/image"
 import JsonLd from "@/app/components/JsonLd"
 import { useBreadcrumbJSON } from "@/app/hooks"
+import { MdOutlinePhoneIphone, MdOutlineEmail } from "react-icons/md"
 
 import dynamic from "next/dynamic"
 
@@ -82,6 +83,24 @@ const Page = () => {
                 <p>
                   {agents[0].description}
                 </p>
+                <div className="flex flex-row space-x-4 items-center">
+                <div className="group flex flex-row items-center space-x-4">
+              <MdOutlineEmail className="group-hover:scale-110 group-hover:brightness-125 transition-all text-3xl text-sky-600" />
+  
+              <a href="mailto:mleblanc@pvcoastalrealty.com?subject=PV Coastal Realty Contact" className="hover:text-sky-600">
+                mleblanc@pvcoastalrealty.com
+              </a>
+      
+          </div>
+          <div className="group flex flex-row items-center space-x-4">
+              <MdOutlinePhoneIphone className="group-hover:scale-110 group-hover:brightness-125 transition-all text-3xl text-sky-600" />
+
+              <a href="tel:+523223017394" className="hover:text-sky-600">
+                +52 322 301 7394
+              </a>
+
+          </div>
+                </div>
               </div>
             </li>
       </ul>
@@ -107,6 +126,24 @@ const Page = () => {
                 <p>
                   {agents[1].description}
                 </p>
+                <div className="flex flex-row space-x-4 items-center">
+                <div className="group flex flex-row items-center space-x-4">
+              <MdOutlineEmail className="group-hover:scale-110 group-hover:brightness-125 transition-all text-3xl text-sky-600" />
+  
+              <a href="mailto:nicolas@pvcoastalrealty.com?subject=PV Coastal Realty Contact" className="hover:text-sky-600">
+                nicolas@pvcoastalrealty.com
+              </a>
+      
+          </div>
+          <div className="group flex flex-row items-center space-x-4">
+              <MdOutlinePhoneIphone className="group-hover:scale-110 group-hover:brightness-125 transition-all text-3xl text-sky-600" />
+
+              <a href="tel:+523227285160" className="hover:text-sky-600">
+                +52 322 728 5160
+              </a>
+
+          </div>
+                </div>
               </div>
             </li>
       </ul>

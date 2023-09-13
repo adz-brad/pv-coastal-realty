@@ -1,8 +1,8 @@
 import { getTitleFromSlug, useZoneData } from "@/app/hooks"
 import Banner from "@/app/components/Banner"
-import ShowProperties from "@/app/components/ShowProperties"
 import JsonLd from "@/app/components/JsonLd"
 import { useBreadcrumbJSON } from "@/app/hooks"
+import Search from "@/app/components/InstantSearch"
 
 import dynamic from "next/dynamic"
 
@@ -79,7 +79,8 @@ const Page = ({ params: { region, zone } }) => {
         <h2 className="text-2xl lg:text-4xl font-bold pb-2 border-b ">
           Browse All Properties In {title}
         </h2>
-        <ShowProperties region={regionId} zones={[data?.id]} />
+        <Search restrict={["regionId", "zoneId"]} filters={`regionId:${regionId} AND zoneId:${data?.id}`} />
+
       </div>
       <Contact />
     </>

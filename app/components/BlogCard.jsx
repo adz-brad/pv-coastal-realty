@@ -22,7 +22,7 @@ function BlogCard({ post, className }) {
                         href={`/blog/${post.slug}`}
                         className="absolute bottom-4 right-4 button z-20 w-fit"
                     >
-                        Read More
+                        Read More <span className="flex h-0 w-0 overflow-hidden">About ${post.title}</span>
                     </Link>
                 </div>
   )

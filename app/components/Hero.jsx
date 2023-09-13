@@ -1,4 +1,5 @@
 import Image from "next/image"
+import Link from "next/link"
 
 const Hero = () => {
   return (
@@ -24,13 +25,12 @@ const Hero = () => {
               <p className="text-center text-zinc-50 text-xl md:text-2xl font-medium">
               Welcome to magical Puerto Vallarta, where dreams are realized and memories are made. 
               </p>
-              <a 
-                href="#featured-properties"
-                role="button"
+              <Link
+                href="/mls-search"
                 className="text-lg md:text-xl font-medium text-zinc-50 px-6 py-4 rounded-sm w-fit bg-sky-500/80 hover:brightness-125 transition-all shadow-lg text-center"
               >
                 Find Your Dream Home Today
-              </a>
+              </Link>
           </div>
         </div>
     </div>
