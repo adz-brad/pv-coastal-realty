@@ -21,7 +21,8 @@ export const metadata = {
     canonical: process.env.NEXT_SITE_BASEPATH,
   },
   other: {
-    thumbnail: '/card.jpg'
+    thumbnail: '/card.jpg',
+    "p:domain_verify": "a759b0a2f21961439070e8a33d861d49"
   },
   verification: {
     google: process.env.NEXT_GOOGLE_VERIFICATION_TOKEN,
