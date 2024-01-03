@@ -23,10 +23,13 @@ export default async function Home() {
   ])
 
   const featuredList = [
-    "49782",
-    "49607",
+    "50523",
     "50080",
-    "50059"
+    "49782",
+    "50726",
+    "50750",
+    "50748",
+    "50565"
   ]
 
   const featuredProperties = await getFeatured(featuredList)

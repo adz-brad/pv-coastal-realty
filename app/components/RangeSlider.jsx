@@ -4,7 +4,7 @@ import { useCurrentRefinements } from "react-instantsearch";
 
 const RangeSlider = () => {
   const { items } = useCurrentRefinements()
-  console.log(items)
+
   const formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'USD',

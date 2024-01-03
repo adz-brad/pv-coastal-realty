@@ -43,6 +43,7 @@ export async function generateMetadata({ params : { property: id }}) {
   }
 }
 
+export const revalidate = 84600
 
 const Page = async ({ params : { property: id }}) => {
 
