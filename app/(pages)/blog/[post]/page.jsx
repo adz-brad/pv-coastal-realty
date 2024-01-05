@@ -5,6 +5,8 @@ import Share from "@/app/components/SocialSharing"
 import { useBlogJson, useBreadcrumbJSON } from "@/app/hooks"
 import JsonLd from "@/app/components/JsonLd"
 
+export const revalidate = 592200
+
 export async function generateMetadata({ params }) {
 
     const post = posts.filter(e => e.slug === params.post)[0]

@@ -18,6 +18,8 @@ let USDollar = new Intl.NumberFormat('en-US', {
   currency: 'USD',
 });
 
+export const revalidate = 84600
+
 export async function generateMetadata({ params : { property: id }}) {
 
   const property = await getMlsProperty(parseInt(id))
@@ -48,10 +50,6 @@ export async function generateMetadata({ params : { property: id }}) {
     },
   }
 }
-
-
-
-export const revalidate = 84600
 
 const Page = async ({ params : { property: id }}) => {
 

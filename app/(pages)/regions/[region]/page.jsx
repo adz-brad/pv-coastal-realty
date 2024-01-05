@@ -14,6 +14,8 @@ import { urlForImage } from "@/sanity/lib/image"
 
 const Contact = dynamic(() => import('@/app/components/Contact'))
 
+export const revalidate = 592200
+
 export async function generateMetadata({ params: { region } }) {
   const title = getTitleFromSlug(region)
   const data = await getRegion(title)
