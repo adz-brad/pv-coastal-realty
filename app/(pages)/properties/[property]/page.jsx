@@ -4,7 +4,6 @@ import { TbRulerMeasure } from 'react-icons/tb'
 import Link from "next/link"
 import { usePropertyJSON, useBreadcrumbJSON } from "@/app/hooks"
 import JsonLd from "@/app/components/JsonLd"
-import { getProperty } from "@/app/firebase/functions";
 import { getMlsProperty } from "@/sanity/queries"
 import { urlForImage } from "@/sanity/lib/image"
 
