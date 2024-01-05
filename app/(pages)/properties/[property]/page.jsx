@@ -43,7 +43,7 @@ export async function generateMetadata({ params : { property: id }}) {
       title: `${property.title} | PV Coastal Realty`,
       description: `${property.title} (MLV# ${property.mlvId}), located in ${property.city}, ${property.state}, Mexico, is currently listed at $${property.price} USD. Contact PV Coastal Realty today to learn more about this amazing opportunity!`,
       type: 'website',
-      images: [{ url: property?.images?.length && urlForImage(property.images[0]) }],
+      images: [{ url: property?.images?.length && urlForImage(property.images[0])}],
       url: `${process.env.NEXT_SITE_BASEPATH}/properties/${id}`
     },
   }

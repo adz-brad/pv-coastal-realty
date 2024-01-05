@@ -15,7 +15,7 @@ const FeaturedCard =  ({ property, current }) => {
   });
 
   const price = property?.price?.current ? USDollar.format(property?.price?.current) : null
-  const image = urlForImage(property?.images[0])
+  const image = property?.images?.length && urlForImage(property?.images[0])
   const jsonData = usePropertyJSON({
     title: property?.title,
     address: {

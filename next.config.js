@@ -5,7 +5,7 @@ const nextConfig = {
         removeConsole: process.env.NODE_ENV === "production"
       },
     images: {
-        //unoptimized: process.env.NODE_ENV === "development",
+        unoptimized: true,
         remotePatterns: [
             { hostname: 'cdn.sanity.io' },
             { hostname: 'images.unsplash.com' },
