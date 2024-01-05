@@ -3,6 +3,7 @@
 import { useState } from "react"
 import Image from "next/image"
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight, MdCloseFullscreen } from 'react-icons/md'
+import { urlForImage } from "@/sanity/lib/image"
 
 const ImageGallery = ({ images }) => {
 
@@ -45,7 +46,7 @@ const ImageGallery = ({ images }) => {
                             }}
                         >
                             <Image
-                                src={image.thumbnail} 
+                                src={urlForImage(image)} 
                                 fill={true}
                                 className="rounded-sm object-cover hover:scale-105"
                                 alt={image.alt}
@@ -82,7 +83,7 @@ const ImageGallery = ({ images }) => {
                             fetchPriority="high"
                             loading="eager"
                                 key={i}
-                                src={lightbox ? image.image : image.seoImage} 
+                                src={urlForImage(image)} 
                                 fill={true}
                                 className={`${i === current ? 'z-20' : 'z-10'} rounded-sm object-cover`}
                                 alt={image.alt}
@@ -93,7 +94,7 @@ const ImageGallery = ({ images }) => {
                             :
                             <Image
                                 key={i}
-                                src={lightbox ? image.image : image.seoImage} 
+                                src={urlForImage(image)} 
                                 fill={true}
                                 className={`${i === current ? 'z-20' : 'z-10'} rounded-sm object-cover`}
                                 alt={image.alt}

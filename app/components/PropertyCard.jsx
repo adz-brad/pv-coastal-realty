@@ -3,6 +3,7 @@ import Link from "next/link"
 import { MdLocationPin } from 'react-icons/md'
 import { usePropertyJSON } from "@/app/hooks"
 import JsonLd from "@/app/components/JsonLd"
+import { urlForImage } from "@/sanity/lib/image"
 
 const PropertyCard = ({ property, i, className }) => {
 
@@ -15,17 +16,24 @@ const PropertyCard = ({ property, i, className }) => {
       postalCode: property?.address?.postalCode,
       coordinates: {
         lat: property?.address?.coordinates?.lat,
-        lon: property?.address?.coordinates?.lon
+        lon: property?.address?.coordinates?.lng
       }
     },
     price: property?.price?.current,
     description: property?.description?.en,
-    image: property?.images[0]?.seoImage,
+    image: property?.images?.length && urlForImage(property.images[0]),
     type: property?.type?.en,
     updatedOn: property?.updatedOn,
     createdOn: property?.createdOn,
     url: `https://www.pvcoastalrealty.com/properties/${property?.mlvId}`
   })
+
+  let USDollar = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+  });
+
+  const price = property?.price?.current ? USDollar.format(property?.price?.current) : null
 
   return (
 
@@ -35,7 +43,7 @@ const PropertyCard = ({ property, i, className }) => {
         {property.images.length > 0 ?
         <Image  
           loading="eager"
-          src={property.images[0].seoImage} 
+          src={urlForImage(property.images[0])} 
           fill={true}
           className="rounded-t-md object-cover"
           alt={property.images[0].alt}
@@ -57,7 +65,7 @@ const PropertyCard = ({ property, i, className }) => {
               {property.title}
             </h3>
             <span className="lg:text-lg text-neutral-500">
-              {property.price.current}
+              {price}
             </span>
           </div>
           <div className="flex flex-row items-center space-x-1">

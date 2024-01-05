@@ -1,11 +1,12 @@
 import Banner from "@/app/components/Banner"
-import { regions } from "@/data"
 import { MdLocationPin } from 'react-icons/md'
 import Image from "next/image"
 import Link from "next/link"
 import slugify from "slugify"
 import JsonLd from "@/app/components/JsonLd"
 import { useBreadcrumbJSON } from "@/app/hooks"
+import { getRegions } from "@/sanity/queries"
+import { urlForImage } from "@/sanity/lib/image"
 
 import dynamic from "next/dynamic"
 
@@ -37,7 +38,7 @@ export const metadata = {
   },
 }
 
-const Page = () => {
+const Page = async () => {
 
   const breadcrumbData = useBreadcrumbJSON([
     {
@@ -49,6 +50,8 @@ const Page = () => {
       name: 'Regions'
     },
   ])
+
+  const regions = await getRegions()
 
   return (
     <>
@@ -64,7 +67,7 @@ const Page = () => {
               <li key={i} className="flex flex-col lg:flex-row space-y-4 lg:space-x-8 lg:space-y-0">
                     <div className="relative h-[350px] lg:h-auto lg:w-1/2">
                     <Image
-                        src={region.imageUrl} 
+                        src={urlForImage(region.image)} 
                         fill={true}
                         className="rounded-l-md object-cover"
                     />
@@ -86,7 +89,7 @@ const Page = () => {
                         {region.zones.map((zone) => {
                           return (
                             <li 
-                              key={zone.id}
+                              key={zone.title}
                               className="flex flex-row items-center space-x-2"
                             >
                               <MdLocationPin className="text-lg text-sky-500" />

@@ -5,9 +5,17 @@ import { TbRulerMeasure } from 'react-icons/tb'
 import Link from "next/link"
 import { usePropertyJSON } from "@/app/hooks"
 import JsonLd from "@/app/components/JsonLd"
+import { urlForImage } from "@/sanity/lib/image"
 
 const FeaturedCard =  ({ property, current }) => {
 
+  let USDollar = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+  });
+
+  const price = property?.price?.current ? USDollar.format(property?.price?.current) : null
+  const image = urlForImage(property?.images[0])
   const jsonData = usePropertyJSON({
     title: property?.title,
     address: {
@@ -17,12 +25,12 @@ const FeaturedCard =  ({ property, current }) => {
       postalCode: property?.address?.postalCode,
       coordinates: {
         lat: property?.address?.coordinates?.lat,
-        lon: property?.address?.coordinates?.lon
+        lon: property?.address?.coordinates?.lng
       }
     },
-    price: property?.price?.current,
+    price: price,
     description: property?.description?.en,
-    image: property?.images[0].seoImage,
+    image: image,
     type: property?.type?.en
   })
 
@@ -36,18 +44,18 @@ const FeaturedCard =  ({ property, current }) => {
               {property?.title}
             </h3>
             <span className="text-xl md:text-2xl text-neutral-500">
-              {property?.price.current}
+              {price}
             </span>
           </div>
           <div className="flex flex-row items-center space-x-1">
             <MdLocationPin className="text-sky-600 text-2xl" />
             <span className="text-lg">
-              {property?.address.city}, {property?.address.state}
+              {property?.address?.city}, {property?.address?.state}
             </span>
           </div>
         </div>
         <div className="hidden lg:flex flex-col space-y-2 my-2 lg:my-auto">
-          {property?.description.en}
+          {property?.description?.en ? property?.description?.en : property?.description?.es ? property.description.es : ''}
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 my-8">
                 <div className="flex flex-col text-lg">
@@ -115,7 +123,7 @@ const FeaturedCard =  ({ property, current }) => {
           loading="eager"
           priority
           fetchPriority="high"
-          src={property?.images[0].seoImage} 
+          src={image} 
           fill={true}
           className="rounded-r-md object-cover"
           alt={property?.images[0].alt}

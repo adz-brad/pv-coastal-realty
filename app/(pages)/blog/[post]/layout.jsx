@@ -3,21 +3,14 @@ import Banner from "@/app/components/Banner"
 import PropertyCard from "@/app/components/PropertyCard"
 import BlogCard from "@/app/components/BlogCard"
 import Link from "next/link"
-import { getFeatured } from "@/app/firebase/functions"
+import { getFeatured } from '@/sanity/queries'
 
 async function BlogLayout ({ params, children }) {
 
   const post = posts.filter(e => e.slug === params.post)[0]
   const featured = posts.filter(e => e.featured)
 
-  const featuredList = [
-    "49782",
-    "49607",
-    "50080",
-    "50059"
-  ]
-
-  const properties = await getFeatured(featuredList)
+  const properties = await getFeatured()
 
   return (
     <>

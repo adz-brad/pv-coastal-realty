@@ -88,7 +88,7 @@ export default function RootLayout({ children }) {
             {children}
           </main>
         <Footer />
-        <Messenger />
+        {process.env.NODE_ENV === "production" && <Messenger />}
       </body>
     </html>
 

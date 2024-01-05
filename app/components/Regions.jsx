@@ -1,9 +1,9 @@
-import { popularRegions } from "@/data"
 import Image from "next/image"
 import Link from "next/link"
 import slugify from "slugify"
+import { urlForImage } from "@/sanity/lib/image"
 
-const Regions = () => {
+const Regions = ({zones}) => {
 
   return (
     <div className="flex flex-col px-4 lg:px-8">
@@ -19,15 +19,15 @@ const Regions = () => {
         </Link>
       </div>
       <div className="flex flex-col py-8 space-y-8 xl:space-y-16">
-        {popularRegions.map((region, i) => {
+        {zones.map((region) => {
           return (
             <div key={region.id} className="flex flex-col lg:flex-row lg:space-x-8 space-y-8 lg:space-y-0">
                 <div className="relative h-[400px] lg:w-1/2">
                 <Image 
-                    src={region.imageUrl} 
+                    src={urlForImage(region.image)} 
                     fill={true}
                     className="rounded-l-md object-cover"
-                    alt={`PV Coastal Realty: ${region.title} Region`}
+                    alt={`PV Coastal Realty: ${region.title} zone in ${region.region}`}
                 />
                 </div>
             <div className="flex flex-col lg:w-1/2">

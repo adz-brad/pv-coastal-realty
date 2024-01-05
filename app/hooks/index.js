@@ -107,7 +107,7 @@ export const getTitleFromSlug = (string) => {
           "image": "${data.image}",
           "offers": {
             "@type": "Offer",
-            "price": ${parseFloat(data.price?.replace(/[^a-zA-Z0-9-.]/g,'')).toFixed(2)},
+            "price": ${data.price},
             "priceCurrency": "USD"
         }
         }

@@ -5,6 +5,8 @@ import Link from "next/link"
 import { usePropertyJSON, useBreadcrumbJSON } from "@/app/hooks"
 import JsonLd from "@/app/components/JsonLd"
 import { getProperty } from "@/app/firebase/functions";
+import { getMlsProperty } from "@/sanity/queries"
+import { urlForImage } from "@/sanity/lib/image"
 
 import dynamic from "next/dynamic"
 
@@ -12,10 +14,15 @@ const ImageGallery = dynamic(() => import('@/app/components/ImageGallery'))
 const Contact = dynamic(() => import('@/app/components/Contact'))
 const Mapbox = dynamic(() => import('@/app/components/Map'))
 
+let USDollar = new Intl.NumberFormat('en-US', {
+  style: 'currency',
+  currency: 'USD',
+});
+
 export async function generateMetadata({ params : { property: id }}) {
 
-  const property = await getProperty(id)
-  
+  const property = await getMlsProperty(parseInt(id))
+ 
   return {
     title: `${property.title} | PV Coastal Realty`,
     description: `${property.title} (MLV# ${property.mlvId}), located in ${property.city}, ${property.state}, Mexico, is currently listed at $${property.price} USD. Contact PV Coastal Realty today to learn more about this amazing opportunity!`,
@@ -23,31 +30,34 @@ export async function generateMetadata({ params : { property: id }}) {
       canonical: `${process.env.NEXT_SITE_BASEPATH}/properties/${id}`,
     },
     other: {
-      thumbnail: property?.images[0]?.seoImage
+      thumbnail: property?.images?.length && urlForImage(property.images[0])
     },
     twitter: {
       card: 'summary',
       title: `${property?.title} | PV Coastal Realty`,
       description: `${property?.title} (MLV# ${property.mlvId}), located in ${property.city}, ${property.state}, Mexico, is currently listed at $${property.price} USD. Contact PV Coastal Realty today to learn more about this amazing opportunity!`,
       creator: '@pvcoastalrealty',
-      images: [{ url: property?.images[0].seoImage }],
+      images: [{ url: property?.images?.length && urlForImage(property.images[0]) }],
       url: `${process.env.NEXT_SITE_BASEPATH}/properties/${id}`
     },
     openGraph: {
       title: `${property.title} | PV Coastal Realty`,
       description: `${property.title} (MLV# ${property.mlvId}), located in ${property.city}, ${property.state}, Mexico, is currently listed at $${property.price} USD. Contact PV Coastal Realty today to learn more about this amazing opportunity!`,
       type: 'website',
-      images: [{ url: property?.images[0].seoImage }],
+      images: [{ url: property?.images?.length && urlForImage(property.images[0]) }],
       url: `${process.env.NEXT_SITE_BASEPATH}/properties/${id}`
     },
   }
 }
 
+
+
 export const revalidate = 84600
 
 const Page = async ({ params : { property: id }}) => {
 
-  const property = await getProperty(id)
+  const property = await getMlsProperty(parseInt(id))
+  const price = property?.price?.current ? USDollar.format(property?.price?.current) : null
 
   const propertyData = usePropertyJSON({
     title: property?.title,
@@ -58,12 +68,12 @@ const Page = async ({ params : { property: id }}) => {
       postalCode: property?.address?.postalCode,
       coordinates: {
         lat: property?.address?.coordinates?.lat,
-        lon: property?.address?.coordinates?.lon
+        lon: property?.address?.coordinates?.lng
       }
     },
-    price: property?.price?.current,
+    price: price,
     description: property?.description?.en,
-    image: property?.images[0].seoImage,
+    image: property?.images?.length && urlForImage(property.images[0]),
     type: property?.type?.en,
     updatedOn: property?.updatedOn,
     createdOn: property?.createdOn,
@@ -85,12 +95,11 @@ const Page = async ({ params : { property: id }}) => {
     }
   ])
 
-
   return (
     <>
       <JsonLd data={propertyData} />
       <JsonLd data={breadcrumbData} />
-      <Banner title={property?.title} image={property.images[0]?.image} />
+      <Banner title={property?.title} image={property?.images?.length && urlForImage(property.images[0])} />
       <div className="flex flex-col mx-auto p-4 md:p-8 xl:px-0 xl:py-16 max-w-screen-2xl space-y-8 xl:space-y-16">
         <div className="flex flex-col lg:flex-row space-y-8 lg:space-y-0 lg:space-x-8 2xl:space-x-16">
           <div className="lg:w-1/2" title="Property Images">
@@ -102,7 +111,7 @@ const Page = async ({ params : { property: id }}) => {
                 {property?.title}
               </h2>
               <span className="text-neutral-500/80 text-xl md:text-2xl" title="Price">
-                {property?.price?.current}
+                {price}
               </span>
               <span>MLV# {property.mlvId}</span>
             </div>
@@ -111,7 +120,7 @@ const Page = async ({ params : { property: id }}) => {
                 <MdLocationPin className="text-2xl text-sky-600 min-w-[20px]"/>
                 <a 
                   title="Open in Google Maps"
-                  href={`https://www.google.com/maps/search/${property.address?.street?.replace(' ','+')},+${property.address?.city?.replace(' ','+')},+${property.address?.state?.replace(' ','+')}+/@${property.address?.coordinates?.lat},${property.address?.coordinates?.lon}?entry=ttu`}
+                  href={`https://www.google.com/maps/search/${property.address?.street?.replace(' ','+')},+${property.address?.city?.replace(' ','+')},+${property.address?.state?.replace(' ','+')}+/@${property.address?.coordinates?.lat},${property.address?.coordinates?.lng}?entry=ttu`}
                   target="_blank"
                   referrerPolicy="no-referrer"
                   className="text-sm md:text-base hover:underline"
@@ -185,7 +194,7 @@ const Page = async ({ params : { property: id }}) => {
           <div className="w-full h-[350px] md:h-[450px] lg:h-[600px]">
               <Mapbox 
                 title={property.title}
-                coordinates={{lat: property.address?.coordinates?.lat, lng: property.address?.coordinates?.lon}} 
+                coordinates={{lat: property.address?.coordinates?.lat, lng: property.address?.coordinates?.lng}} 
                 zoom={13} 
               />
           </div>
