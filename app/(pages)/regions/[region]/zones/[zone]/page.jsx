@@ -10,9 +10,13 @@ import { urlForImage } from "@/sanity/lib/image"
 
 const Contact = dynamic(() => import('@/app/components/Contact'))
 
+//export const revalidate = 592200
+export const revalidate = 0
+
 export async function generateMetadata({ params: { region, zone } }) {
   const title = getTitleFromSlug(zone)
   const data = await getZone(title)
+
   return {
     title: `${data.title} | PV Coastal Realty`,
     description: `Browse PV Coastal Realty's extensive listing database from MLS Vallarta in the ${data.title} zone of ${data.region}, Mexico to find your dream home today!`,

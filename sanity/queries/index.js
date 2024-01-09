@@ -27,14 +27,14 @@ export const getRegions = async () => {
 }
 
 export const getRegion = async (title) => {
-    return await client.fetch(groq`*[_type == 'region' && title == $title][0]{
+    return await client.fetch(groq`*[_type == 'region' && title match $title][0]{
         ...,
         zones[]->{title,image,description,id}
     }`, { title: title })
 }
 
 export const getZone = async (title) => {
-    return await client.fetch(groq`*[_type == 'zone' && title == $title][0]`, { title: title })
+    return await client.fetch(groq`*[_type == 'zone' && title match $title][0]`, { title: title })
 }
 
 export const getRegionId = async (title) => {
