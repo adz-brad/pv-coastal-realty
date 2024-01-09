@@ -34,7 +34,8 @@ export const metadata = {
   },
 }
 
-export const revalidate = 84600
+//export const revalidate = 592200
+export const revalidate = 0
 
 const Page = () => {
 

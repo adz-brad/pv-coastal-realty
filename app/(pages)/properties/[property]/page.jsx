@@ -18,7 +18,8 @@ let USDollar = new Intl.NumberFormat('en-US', {
   currency: 'USD',
 });
 
-export const revalidate = 84600
+//export const revalidate = 592200
+export const revalidate = 0
 
 export async function generateMetadata({ params : { property: id }}) {
 

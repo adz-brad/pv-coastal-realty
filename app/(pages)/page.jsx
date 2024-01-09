@@ -11,7 +11,8 @@ const Regions = dynamic(() => import('@/app/components/Regions'))
 const FeaturedBlog = dynamic(() => import('@/app/components/FeaturedBlog'))
 const JsonLd = dynamic(() => import('@/app/components/JsonLd'))
 
-export const revalidate = 592200
+//export const revalidate = 592200
+export const revalidate = 0
 
 export default async function Home() {
 
