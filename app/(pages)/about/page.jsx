@@ -104,7 +104,7 @@ const Page = () => {
               </div>
             </li>
       </ul>
-      <h3 className="pb-2 border-b font-semibold text-2xl">
+      {/*<h3 className="pb-2 border-b font-semibold text-2xl">
         Our Agents
       </h3>
       <ul className="flex flex-col space-y-16 lg:space-y-8">
@@ -146,7 +146,7 @@ const Page = () => {
                 </div>
               </div>
             </li>
-      </ul>
+  </ul>*/}
     </div>
     <Contact />
   </>
